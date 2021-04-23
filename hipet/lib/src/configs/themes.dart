@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 ThemeData getThemeData() {
   return ThemeData(
     textTheme: _textTheme,
+    accentColor: Color(0xFF4F41F9),
   );
 }
 
