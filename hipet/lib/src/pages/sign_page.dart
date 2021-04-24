@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:hipet/src/pages/sign_process_frame.dart';
+import 'package:hipet/src/widgets/widest_button.dart';
 
 class SignPage extends StatelessWidget {
   @override
@@ -18,12 +20,15 @@ class SignPage extends StatelessWidget {
                 width: 120,
                 height: 120,
               ),
-              buildSignButton(null, '전화번호로 가입', () {}),
-              buildSignButton('assets/icon/ic_KakaoTalk.png', '카카오톡으로 계속 진행', () {}),
-              buildSignButton('assets/icon/ic_naver.png', '네이버로 계속 진행', () {}),
-              buildSignButton('assets/icon/ic_twitter.png', '트위터로 계속 진행', () {}),
-              buildSignButton('assets/icon/ic_Google.png', '구글로 계속 진행', () {}),
-              buildSignButton('assets/icon/ic_facebook.png', '페이스북으로 계속 진행', () {}),
+              GestureDetector(
+                onTap: () => Get.to(() => SignProcessFrame()),
+                child: WidestButton('전화번호로 가입', imageAsset: 'assets/icon/ic_person.png'),
+              ),
+              WidestButton('카카오톡으로 계속 진행', imageAsset: 'assets/icon/ic_KakaoTalk.png'),
+              WidestButton('네이버로 계속 진행', imageAsset: 'assets/icon/ic_naver.png'),
+              WidestButton('트위터로 계속 진행', imageAsset: 'assets/icon/ic_twitter.png'),
+              WidestButton('구글로 계속 진행', imageAsset: 'assets/icon/ic_Google.png'),
+              WidestButton('페이스북으로 계속 진행', imageAsset: 'assets/icon/ic_facebook.png'),
               SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,51 +40,17 @@ class SignPage extends StatelessWidget {
                   SizedBox(width: 16),
                   GestureDetector(
                     onTap: () {},
-                    child: Text('로그인',
-                        style: Theme.of(context).textTheme.button!.copyWith(color: Theme.of(context).accentColor)),
+                    child: Text(
+                      '로그인',
+                      style: Theme.of(context).textTheme.button!.copyWith(
+                            color: Theme.of(context).accentColor,
+                          ),
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  GestureDetector buildSignButton(String? imageAsset, String title, VoidCallback clickLogin) {
-    return GestureDetector(
-      onTap: clickLogin,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            imageAsset != null
-                ? Image.asset(
-                    imageAsset,
-                    fit: BoxFit.cover,
-                    width: 16,
-                    height: 16,
-                  )
-                : SvgPicture.asset('assets/icon/svg/person.svg'),
-            Expanded(
-              child: Center(
-                child: Builder(
-                  builder: (context) => Text(
-                    title,
-                    style: Theme.of(context).textTheme.button,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 16),
-          ],
         ),
       ),
     );
