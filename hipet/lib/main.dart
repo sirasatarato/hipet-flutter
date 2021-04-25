@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/themes.dart';
-import 'package:hipet/src/pages/sign_page.dart';
+import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/pages/splash_page.dart';
 
 void main() {

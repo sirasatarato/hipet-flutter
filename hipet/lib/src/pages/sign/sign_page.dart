@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/pages/sign_process_frame.dart';
+import 'package:hipet/src/pages/sign/sign_process_frame.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
 class SignPage extends StatelessWidget {
