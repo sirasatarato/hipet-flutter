@@ -3,6 +3,7 @@ import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/sign_up_nav_controller.dart';
 
+// ignore: must_be_immutable
 class SignProcessFrame extends StatelessWidget {
   var signNavController = Get.put(SignUpNavController());
 

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class WidestButton extends StatelessWidget {
   final String text;
   final String? imageAsset;
+  final bool isColored;
 
-  const WidestButton(this.text, {this.imageAsset});
+  const WidestButton(this.text, {this.imageAsset, this.isColored = false});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class WidestButton extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(8),
+        color: isColored ? Theme.of(context).accentColor : Colors.white,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +31,9 @@ class WidestButton extends StatelessWidget {
             child: Center(
               child: Text(
                   text,
-                  style: Theme.of(context).textTheme.button,
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                    color: isColored ? Colors.white : Colors.black,
+                  ),
               ),
             ),
           ),

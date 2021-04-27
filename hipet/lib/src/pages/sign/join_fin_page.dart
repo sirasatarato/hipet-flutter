@@ -30,7 +30,7 @@ class JoinFinPage extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width - 80,
                 height: 48,
-                child: WidestButton('확인'),
+                child: WidestButton('확인', isColored: true),
               ),
             ),
           ),
