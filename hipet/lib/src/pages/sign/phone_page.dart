@@ -5,13 +5,9 @@ import 'package:hipet/src/controller/phone_controller.dart';
 import 'package:hipet/src/controller/sign_up_nav_controller.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
-class PhonePage extends StatefulWidget {
-  @override
-  _PhonePageState createState() => _PhonePageState();
-}
-
-class _PhonePageState extends State<PhonePage> {
-  final SignUpNavController _navController = Get.find();
+// ignore: must_be_immutable
+class PhonePage extends StatelessWidget {
+  late SignUpNavController _navController = Get.find();
 
   final _formKey = GlobalKey<FormState>();
   RegExp phoneNumberPattern = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');

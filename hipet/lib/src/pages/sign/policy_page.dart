@@ -5,13 +5,9 @@ import 'package:hipet/src/controller/sign_up_nav_controller.dart';
 import 'package:hipet/src/widgets/policy_check_box.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
-class PolicyPage extends StatefulWidget {
-  @override
-  _PolicyPageState createState() => _PolicyPageState();
-}
-
-class _PolicyPageState extends State<PolicyPage> {
-  final SignUpNavController _navController = Get.find();
+// ignore: must_be_immutable
+class PolicyPage extends StatelessWidget {
+  late SignUpNavController _navController = Get.find();
   final PolicyController _policyController = Get.put(PolicyController());
 
   @override
@@ -36,6 +32,7 @@ class _PolicyPageState extends State<PolicyPage> {
                       '“서비스명” 에서 인기 동영상 및 프로모션에 대한 알림을 받습니다. '
                       '언제든지 설정을 검토하고 편집할 수 있습니다. '
                       '이러한 유형의 알림을 허용하지 않아도 “서비스명”의 서비스 사용이 제한되지는 않습니다.',
+                      context,
                     ),
                   ],
                 ),
@@ -57,7 +54,10 @@ class _PolicyPageState extends State<PolicyPage> {
                     Text('모두 동의'),
                   ],
                 ),
-                buildMessage('“서비스명” 서비스 약관 및 개인정보 보호 정책에 동의하며 최신 내용 및 프로모션 알림을 허용합니다.'),
+                buildMessage(
+                  '“서비스명” 서비스 약관 및 개인정보 보호 정책에 동의하며 최신 내용 및 프로모션 알림을 허용합니다.',
+                  context,
+                ),
               ],
             ),
           ),
@@ -75,7 +75,7 @@ class _PolicyPageState extends State<PolicyPage> {
     );
   }
 
-  Padding buildMessage(String message) {
+  Padding buildMessage(String message, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 32),
       child: Text(
