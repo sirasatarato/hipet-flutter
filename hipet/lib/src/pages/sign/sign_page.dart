@@ -6,8 +6,10 @@ import 'package:hipet/src/widgets/widest_button.dart';
 
 // ignore: must_be_immutable
 class SignPage extends StatelessWidget {
-  bool isLogin = false;
+  final bool isLogin;
   late ThemeData _theme;
+
+  SignPage(this.isLogin);
 
   @override
   Widget build(BuildContext context) {

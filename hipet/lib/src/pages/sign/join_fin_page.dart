@@ -34,7 +34,7 @@ class JoinFinPage extends StatelessWidget {
         child: WidestButton(
           '확인',
           isColored: true,
-          clickEvent: () => Get.offAll(() => SignPage()),
+          clickEvent: () => Get.offAll(() => SignPage(true)),
         ),
       ),
     );
