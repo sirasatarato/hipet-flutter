@@ -12,26 +12,27 @@ class SignProcessFrame extends StatelessWidget {
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(MfgLabs.left),
-            color: Colors.black,
-            iconSize: 16,
-            onPressed: () => signNavController.backPage(),
-          ),
-          title: Text(
-            signNavController.getTitle(),
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline1,
-          ),
-          centerTitle: true,
-        ),
-        body: signNavController.getPage(),
         resizeToAvoidBottomInset: false,
+        appBar: buildAppBar(context),
+        body: signNavController.getPage(),
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      elevation: 0,
+      leading: IconButton(
+        icon: const Icon(MfgLabs.left),
+        color: Colors.black,
+        iconSize: 16,
+        onPressed: () => signNavController.backPage(),
+      ),
+      title: Text(
+        signNavController.getTitle(),
+        style: Theme.of(context).textTheme.headline1,
       ),
     );
   }

@@ -7,11 +7,14 @@ import 'package:hipet/src/widgets/widest_button.dart';
 
 import 'join_fin_page.dart';
 
+// ignore: must_be_immutable
 class PickTopicPage extends StatelessWidget {
   final TopicController _topicController = Get.put(TopicController());
+  late ThemeData _theme;
 
   @override
   Widget build(BuildContext context) {
+    _theme = Theme.of(context);
     var width = MediaQuery.of(context).size.width / 6;
     _topicController.topics = [
       Pair('강아지', false),
@@ -22,74 +25,78 @@ class PickTopicPage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Obx(
-          () => Column(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: GestureDetector(
-                    onTap: () => Get.to(() => JoinFinPage()),
-                    child: Text(
-                      '다음에 선택하기',
-                      style: Theme.of(context).textTheme.button!.copyWith(
-                            color: Theme.of(context).accentColor,
-                          ),
-                    ),
-                  ),
-                ),
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.topRight,
+              padding: const EdgeInsets.all(16),
+              child: buildSkipPage(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text('좋아하는 동물을 선택해주세요.', style: _theme.textTheme.bodyText1),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: width),
+                child: buildPickableListView(width),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  '좋아하는 동물을 선택해주세요.',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width),
-                  child: ShaderMask(
-                    shaderCallback: (Rect rect) {
-                      return LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
-                        stops: [0, 0, 0.98, 1.0], // 10% purple, 80% transparent, 10% purple
-                      ).createShader(rect);
-                    },
-                    blendMode: BlendMode.dstOut,
-                    child: GridView.count(
-                      mainAxisSpacing: 36,
-                      crossAxisSpacing: width,
-                      crossAxisCount: 2,
-                      children: _topicController.topics.asMap().entries.map((e) {
-                        var val = e.value;
-                        return GestureDetector(
-                          onTap: () => _topicController.changeSelectTopic(e.key),
-                          child: PickableTopic(val.left, val.right),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 32),
-                child: GestureDetector(
-                  onTap: () => Get.to(() => JoinFinPage()),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width - 80,
-                    height: 48,
-                    child: WidestButton('다 골랐어요!', isColored: _topicController.isAnyClicked()),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(40, 0, 40, 32),
+              width: MediaQuery.of(context).size.width - 80,
+              height: 48,
+              child: buildBottomButton(),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget buildSkipPage() {
+    return GestureDetector(
+      onTap: () => Get.to(() => JoinFinPage()),
+      child: Text(
+        '다음에 선택하기',
+        style: _theme.textTheme.button!.copyWith(color: _theme.accentColor),
+      ),
+    );
+  }
+
+  Widget buildPickableListView(double width) {
+    return ShaderMask(
+      shaderCallback: (Rect rect) {
+        return LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
+          stops: [0, 0, 0.98, 1.0], // 10% purple, 80% transparent, 10% purple
+        ).createShader(rect);
+      },
+      blendMode: BlendMode.dstOut,
+      child: Obx(
+        () => GridView.count(
+          mainAxisSpacing: 36,
+          crossAxisSpacing: width,
+          crossAxisCount: 2,
+          children: _topicController.topics.asMap().entries.map((e) {
+            var val = e.value;
+            return GestureDetector(
+              onTap: () => _topicController.changeSelectTopic(e.key),
+              child: PickableTopic(val.left, val.right),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  WidestButton buildBottomButton() {
+    return WidestButton(
+      '다 골랐어요!',
+      isColored: _topicController.isAnyClicked(),
+      clickEvent: () => Get.to(() => JoinFinPage()),
     );
   }
 }
