@@ -11,6 +11,7 @@ const _textTheme = TextTheme(
   headline1: TextStyle(
     fontFamily: 'NotoSansKR',
     fontSize: 18,
+    color: Colors.black,
   ),
   bodyText1: TextStyle(
     fontFamily: 'NotoSansKR',
@@ -28,6 +29,7 @@ const _textTheme = TextTheme(
   subtitle1: TextStyle(
     fontFamily: 'NotoSansKR',
     fontSize: 11,
+    color: Colors.grey,
   ),
   subtitle2: TextStyle(
     fontFamily: 'NotoSansKR',
