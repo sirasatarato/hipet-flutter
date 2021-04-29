@@ -5,37 +5,34 @@ import 'package:hipet/src/controller/sign_up_nav_controller.dart';
 import 'package:hipet/src/widgets/policy_check_box.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
-// ignore: must_be_immutable
 class PolicyPage extends StatelessWidget {
-  final PolicyController _policyController = Get.put(PolicyController());
-  late ThemeData _theme;
+  final PolicyController _policyController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    _theme = Theme.of(context);
-
     return Column(
       children: [
-        Container(
-          height: MediaQuery.of(context).size.height / 3,
-          padding: const EdgeInsets.all(16),
-          child: buildContents(context),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: buildContents(),
         ),
         Spacer(),
         Divider(thickness: 2),
         Padding(
-          padding: const EdgeInsets.all(24),
-          child: buildAllAgreementCheckBox(),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 40),
-          child: buildBottomButton(),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              buildAllAgreementCheckBox(),
+              buildMessage('“서비스명” 서비스 약관 및 개인정보 보호 정책에 동의하며 최신 내용 및 프로모션 알림을 허용합니다.'),
+              buildBottomButton(),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  Column buildContents(BuildContext context) {
+  Column buildContents() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -55,47 +52,47 @@ class PolicyPage extends StatelessWidget {
     );
   }
 
-  Padding buildMessage(String message) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 32),
-      child: Text(
-        message,
-        softWrap: true,
-        style: _theme.textTheme.subtitle1,
-      ),
-    );
-  }
-
-  Column buildAllAgreementCheckBox() {
-    return Column(
+  Row buildAllAgreementCheckBox() {
+    return Row(
       children: [
-        Row(
-          children: [
-            Obx(() => Checkbox(
-                  value: _policyController.getIsAllChecked(),
-                  onChanged: (v) => _policyController.changeAllBox(v!),
-                )),
-            const Text('모두 동의'),
-          ],
+        Obx(
+          () => Checkbox(
+            value: _policyController.getIsAllChecked(),
+            onChanged: (v) => _policyController.changeAllBox(v!),
+          ),
         ),
-        buildMessage(
-          '“서비스명” 서비스 약관 및 개인정보 보호 정책에 동의하며 최신 내용 및 프로모션 알림을 허용합니다.',
-        ),
+        Text('모두 동의'),
       ],
     );
   }
 
-  Widget buildBottomButton() {
-    return GetBuilder(
-      builder: (SignUpNavController navController) {
-        return Obx(() => WidestButton(
+  Padding buildBottomButton() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(24, 24, 24, 16),
+      child: GetBuilder(
+        builder: (SignUpNavController navController) {
+          return Obx(
+            () => WidestButton(
               '모두 확인 후 동의합니다.',
               isColored: _policyController.conditionToMoveOn(),
               clickEvent: () {
                 if (_policyController.conditionToMoveOn()) navController.nextPage();
               },
-            ));
-      },
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Padding buildMessage(String message) {
+    return Padding(
+      padding: EdgeInsets.only(left: 32),
+      child: Text(
+        message,
+        softWrap: true,
+        style: Get.textTheme.subtitle1,
+      ),
     );
   }
 }

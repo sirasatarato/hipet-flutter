@@ -4,6 +4,7 @@ ThemeData getThemeData() {
   return ThemeData(
     textTheme: _textTheme,
     accentColor: Color(0xFF4F41F9),
+    primaryColor: Color(0xFF1B1B29),
   );
 }
 

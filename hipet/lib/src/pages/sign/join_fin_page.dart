@@ -29,12 +29,12 @@ class JoinFinPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 40),
       child: Container(
-        width: MediaQuery.of(context).size.width - 80,
+        width: Get.width - 80,
         height: 48,
         child: WidestButton(
           '확인',
           isColored: true,
-          clickEvent: () => Get.offAll(() => SignPage(true)),
+          clickEvent: () => Get.offAll(() => const SignPage(true)),
         ),
       ),
     );

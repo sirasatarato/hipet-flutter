@@ -7,15 +7,11 @@ import 'package:hipet/src/widgets/widest_button.dart';
 
 import 'join_fin_page.dart';
 
-// ignore: must_be_immutable
 class PickTopicPage extends StatelessWidget {
-  final TopicController _topicController = Get.put(TopicController());
-  late ThemeData _theme;
+  final TopicController _topicController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    _theme = Theme.of(context);
-    var width = MediaQuery.of(context).size.width / 6;
     _topicController.topics = [
       Pair('강아지', false),
       Pair('강아지', true),
@@ -34,19 +30,21 @@ class PickTopicPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Text('좋아하는 동물을 선택해주세요.', style: _theme.textTheme.bodyText1),
+              child: Text('좋아하는 동물을 선택해주세요.', style: Get.textTheme.bodyText1),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: width),
-                child: buildPickableListView(width),
+                padding: EdgeInsets.symmetric(horizontal: Get.width / 6),
+                child: buildPickableListView(Get.width / 6),
               ),
             ),
-            Container(
+            Padding(
               padding: const EdgeInsets.fromLTRB(40, 0, 40, 32),
-              width: MediaQuery.of(context).size.width - 80,
-              height: 48,
-              child: buildBottomButton(),
+              child: SizedBox(
+                width: Get.width - 80,
+                height: 48,
+                child: buildBottomButton(),
+              ),
             ),
           ],
         ),
@@ -59,7 +57,7 @@ class PickTopicPage extends StatelessWidget {
       onTap: () => Get.to(() => JoinFinPage()),
       child: Text(
         '다음에 선택하기',
-        style: _theme.textTheme.button!.copyWith(color: _theme.accentColor),
+        style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
       ),
     );
   }
@@ -92,11 +90,15 @@ class PickTopicPage extends StatelessWidget {
     );
   }
 
-  WidestButton buildBottomButton() {
-    return WidestButton(
-      '다 골랐어요!',
-      isColored: _topicController.isAnyClicked(),
-      clickEvent: () => Get.to(() => JoinFinPage()),
+  Widget buildBottomButton() {
+    return Obx(
+      () => WidestButton(
+        '다 골랐어요!',
+        isColored: _topicController.isAnyClicked(),
+        clickEvent: () {
+          if(_topicController.isAnyClicked()) Get.to(() => JoinFinPage());
+        },
+      ),
     );
   }
 }

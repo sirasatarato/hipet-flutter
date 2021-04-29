@@ -3,36 +3,35 @@ import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/sign_up_nav_controller.dart';
 
-// ignore: must_be_immutable
 class SignProcessFrame extends StatelessWidget {
-  var signNavController = Get.put(SignUpNavController());
+  final SignUpNavController signNavController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
-        appBar: buildAppBar(context),
-        body: signNavController.getPage(),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      appBar: buildAppBar(),
+      body: Obx(() => signNavController.getPage()),
     );
   }
 
-  AppBar buildAppBar(BuildContext context) {
+  AppBar buildAppBar() {
     return AppBar(
       backgroundColor: Colors.white,
       centerTitle: true,
       elevation: 0,
       leading: IconButton(
         icon: const Icon(MfgLabs.left),
-        color: Colors.black,
         iconSize: 16,
+        color: Colors.black,
         onPressed: () => signNavController.backPage(),
       ),
-      title: Text(
-        signNavController.getTitle(),
-        style: Theme.of(context).textTheme.headline1,
+      title: Obx(
+        () => Text(
+          signNavController.getTitle(),
+          style: Get.textTheme.headline1,
+        ),
       ),
     );
   }
