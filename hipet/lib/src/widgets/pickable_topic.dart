@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hipet/src/model/topic_model.dart';
 
 class PickableTopic extends StatelessWidget {
-  final String name;
-  final bool isSelected;
+  final Topic _topic;
 
-  const PickableTopic(this.name, this.isSelected, {Key? key}) : super(key: key);
+  const PickableTopic(this._topic);
 
   @override
   Widget build(BuildContext context) {
     final accentColor = Theme.of(context).accentColor;
+    final filterColor = _topic.isSelected ? accentColor : Colors.transparent;
+    final textColor = _topic.isSelected ? accentColor : Colors.black;
 
     return Column(
       children: [
@@ -18,17 +20,15 @@ class PickableTopic extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              colorFilter: ColorFilter.mode(isSelected ? accentColor : Colors.transparent, BlendMode.overlay),
+              image: AssetImage(_topic.imageAsset),
+              colorFilter: ColorFilter.mode(filterColor, BlendMode.overlay),
               fit: BoxFit.cover,
-              image: NetworkImage('https://www.exposureguide.com/media/top-ten-photography-tips-4.jpg'),
             ),
           ),
         ),
         Text(
-          name,
-          style: Theme.of(context).textTheme.button!.copyWith(
-                color: isSelected ? accentColor : Colors.black,
-              ),
+          _topic.name,
+          style: Theme.of(context).textTheme.button!.copyWith(color: textColor),
         ),
       ],
     );

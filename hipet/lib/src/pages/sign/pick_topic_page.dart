@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hipet/src/controller/sign_up_controller.dart';
 import 'package:hipet/src/controller/topic_controller.dart';
-import 'package:hipet/src/util/pair.dart';
+import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/widgets/pickable_topic.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
@@ -9,16 +10,10 @@ import 'join_fin_page.dart';
 
 class PickTopicPage extends StatelessWidget {
   final TopicController _topicController = Get.find();
+  final SignUpController _signUpController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    _topicController.topics = [
-      Pair('강아지', false),
-      Pair('강아지', true),
-      Pair('강아지', true),
-      Pair('강아지', false),
-    ];
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -35,7 +30,7 @@ class PickTopicPage extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Get.width / 6),
-                child: buildPickableListView(Get.width / 6),
+                child: buildPickableListView(),
               ),
             ),
             Padding(
@@ -62,7 +57,7 @@ class PickTopicPage extends StatelessWidget {
     );
   }
 
-  Widget buildPickableListView(double width) {
+  Widget buildPickableListView() {
     return ShaderMask(
       shaderCallback: (Rect rect) {
         return LinearGradient(
@@ -76,13 +71,12 @@ class PickTopicPage extends StatelessWidget {
       child: Obx(
         () => GridView.count(
           mainAxisSpacing: 36,
-          crossAxisSpacing: width,
+          crossAxisSpacing: Get.width / 6,
           crossAxisCount: 2,
           children: _topicController.topics.asMap().entries.map((e) {
-            var val = e.value;
             return GestureDetector(
               onTap: () => _topicController.changeSelectTopic(e.key),
-              child: PickableTopic(val.left, val.right),
+              child: PickableTopic(e.value),
             );
           }).toList(),
         ),
@@ -96,9 +90,22 @@ class PickTopicPage extends StatelessWidget {
         '다 골랐어요!',
         isColored: _topicController.isAnyClicked(),
         clickEvent: () {
-          if(_topicController.isAnyClicked()) Get.to(() => JoinFinPage());
+          if (_topicController.isAnyClicked()) {
+            selectCompleteEvent();
+          }
         },
       ),
     );
+  }
+
+  void selectCompleteEvent() async {
+    bool isSuccess = await _signUpController.signUpApi(_topicController.binaryTopics());
+
+    if (isSuccess) {
+      Get.to(() => JoinFinPage());
+    } else {
+      Get.snackbar('회원가입에 실패하였습니다.', '다시 시도해주시길 바랍니다.');
+      Get.offAll(() => SignPage());
+    }
   }
 }
