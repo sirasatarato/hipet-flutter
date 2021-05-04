@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hipet/src/controller/login_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/widgets/logo.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
 class JoinFinPage extends StatelessWidget {
+  final LoginController _loginController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,10 @@ class JoinFinPage extends StatelessWidget {
         child: WidestButton(
           '확인',
           isColored: true,
-          clickEvent: () => Get.offAll(() => SignPage(true)),
+          clickEvent: () {
+            _loginController.isLogin = true;
+            Get.offAll(() => SignPage());
+          },
         ),
       ),
     );

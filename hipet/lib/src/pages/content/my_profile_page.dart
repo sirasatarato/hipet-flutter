@@ -32,8 +32,10 @@ class MyProfilePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Spacer(),
                         Text('밥을 많이 먹는 요요'),
-                        Text('edit'),
+                        Expanded(child: Text('edit')),
+                        Spacer(),
                       ],
                     )
                   ],

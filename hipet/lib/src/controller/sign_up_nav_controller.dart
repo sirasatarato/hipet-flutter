@@ -16,15 +16,15 @@ class SignUpNavController extends GetxController {
   get currentPageNumber => _currentPageNumber.value;
 
   void nextPage() {
-    if(_currentPageNumber.value < pages.length - 1) {
+    if (_currentPageNumber.value < pages.length - 1) {
       _currentPageNumber.value++;
     } else {
-      Get.to(PickTopicPage());
+      Get.to(() => PickTopicPage());
     }
   }
 
   void backPage() {
-    if(_currentPageNumber.value == 0) {
+    if (_currentPageNumber.value == 0) {
       Get.back();
     } else {
       _currentPageNumber.value--;
