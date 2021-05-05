@@ -49,7 +49,7 @@ class PickTopicPage extends StatelessWidget {
 
   Widget buildSkipPage() {
     return GestureDetector(
-      onTap: () => Get.to(() => JoinFinPage()),
+      onTap: selectCompleteEvent,
       child: Text(
         '다음에 선택하기',
         style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
