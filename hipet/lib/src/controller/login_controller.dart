@@ -12,6 +12,10 @@ class LoginController extends GetxController {
     _isLogin.value = value;
   }
 
+  void switchIsLogin() {
+    _isLogin.value = !_isLogin.value;
+  }
+
   void saveIsLogin(bool value) async {
     _preferences ??= await SharedPreferences.getInstance();
     _preferences!.setBool("login", value);

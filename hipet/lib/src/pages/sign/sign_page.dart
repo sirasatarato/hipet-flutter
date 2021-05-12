@@ -33,13 +33,7 @@ class SignPage extends StatelessWidget {
               () => WidestButton(
                 '전화번호로 ' + (_loginController.isLogin ? '계속 진행' : '가입'),
                 imageAsset: 'assets/icon/ic_person.png',
-                clickEvent: () {
-                  if (_loginController.isLogin) {
-                    Get.to(() => MainContentPage());
-                  } else {
-                    Get.to(() => PolicyPage(SignType.PHONE), binding: SignBinding());
-                  }
-                },
+                clickEvent: () => clickLoginEvent(SignType.PHONE, () {}),
               ),
             ),
             ...widgetButtons,
@@ -51,19 +45,31 @@ class SignPage extends StatelessWidget {
     );
   }
 
+  void clickLoginEvent(SignType type, VoidCallback toLogin) {
+    toLogin();
+
+    if (_loginController.isLogin) {
+      Get.to(() => MainContentPage());
+    } else {
+      Get.to(() => PolicyPage(type), binding: SignBinding());
+    }
+  }
+
   Row buildSignBottom() {
+    bool isLogin = _loginController.isLogin;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          _loginController.isLogin ? '계정이 없으세요?' : '이미 계정이 있으신가요?',
+          isLogin ? '계정이 없으세요?' : '이미 계정이 있으신가요?',
           style: Get.textTheme.bodyText1,
         ),
         SizedBox(width: 16),
         GestureDetector(
-          onTap: () => _loginController.isLogin = !_loginController.isLogin,
+          onTap: _loginController.switchIsLogin,
           child: Text(
-            _loginController.isLogin ? '가입하기' : '로그인',
+            isLogin ? '가입하기' : '로그인',
             style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
           ),
         ),
