@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
 import 'package:hipet/src/controller/login_controller.dart';
+import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/pages/content/main_content_page.dart';
-import 'package:hipet/src/pages/sign/sign_process_frame.dart';
+import 'package:hipet/src/pages/sign/policy_page.dart';
 import 'package:hipet/src/widgets/logo.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
@@ -36,7 +37,7 @@ class SignPage extends StatelessWidget {
                   if (_loginController.isLogin) {
                     Get.to(() => MainContentPage());
                   } else {
-                    Get.to(() => SignProcessFrame(), binding: SignBinding());
+                    Get.to(() => PolicyPage(SignType.PHONE), binding: SignBinding());
                   }
                 },
               ),
