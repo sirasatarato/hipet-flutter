@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/themes.dart';
@@ -5,8 +6,11 @@ import 'package:hipet/src/controller/login_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hipet/src/configs/binding.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -16,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: InitBinding(),
       debugShowCheckedModeBanner: false,
       theme: getThemeData(),
       home: FutureBuilder(

@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 
+import 'user_info_controller.dart';
+
 class SignUpController extends getx.GetxController {
   Future<bool> signUpApi(String survey) async {
     BaseOptions options = BaseOptions(
       contentType: Headers.jsonContentType,
-      headers: {'firebaseToken': ''},
+      headers: {'firebaseToken': UserInfoController.firebaseToken},
     );
 
     Dio dio = Dio(options)..interceptors.add(LogInterceptor());

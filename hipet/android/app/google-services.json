@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "38511361562",
+    "project_id": "booming-opus-305213",
+    "storage_bucket": "booming-opus-305213.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38511361562:android:25b2c1946b56037c4e5ba3",
+        "android_client_info": {
+          "package_name": "com.hipet.hipet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38511361562-f2u9qfpfs9avldbfip1pojq0v1ip2c3c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hipet.hipet",
+            "certificate_hash": "85d38beedba2646815b592e1f25f980f1c00d820"
+          }
+        },
+        {
+          "client_id": "38511361562-5cgumon12q45f4n8a3fft7cduhvqp2ql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmL7535npHwBIPPSVuoaXk9jZlt1Zt0Ww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38511361562-5cgumon12q45f4n8a3fft7cduhvqp2ql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
