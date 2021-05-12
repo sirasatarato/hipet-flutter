@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/pages/sign/phone_page.dart';
 import 'package:hipet/src/pages/sign/pick_topic_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PolicyController extends GetxController {
-  final _isChecked = <bool>[false, false, false].obs;
+  final _isChecked = [false, false, false].obs;
   late Widget nextPage;
 
   // ignore: invalid_use_of_protected_member
@@ -24,11 +25,7 @@ class PolicyController extends GetxController {
   bool getIsAllChecked() => isChecked.where((e) => !e).isEmpty;
 
   void changeAllBox(bool value) {
-    if (value) {
-      _isChecked.value = [true, true, true];
-    } else {
-      _isChecked.value = [false, false, false];
-    }
+    _isChecked.value = [value, value, value];
   }
 
   void setNextPage(SignType type) {
@@ -43,5 +40,11 @@ class PolicyController extends GetxController {
       case SignType.FACEBOOK:
         nextPage = PickTopicPage();
     }
+  }
+
+  void savePolicy() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    // ignore: invalid_use_of_protected_member
+    preferences.setBool("notification", _isChecked.value.last);
   }
 }

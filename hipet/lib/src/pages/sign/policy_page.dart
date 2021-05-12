@@ -104,6 +104,7 @@ class PolicyPage extends StatelessWidget {
           isColored: _policyController.conditionToMoveOn(),
           clickEvent: () {
             if (_policyController.conditionToMoveOn()) {
+              _policyController.savePolicy();
               Get.to(() => _policyController.nextPage);
             }
           },
