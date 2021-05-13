@@ -7,6 +7,7 @@ import 'package:hipet/src/pages/sign/pick_topic_page.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
 class PhonePage extends StatelessWidget {
+  final TextEditingController _textEditingController = TextEditingController();
   final RegExp phoneNumberPattern = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
   final PhoneController phoneController = Get.find();
 
@@ -52,9 +53,11 @@ class PhonePage extends StatelessWidget {
 
   TextFormField buildInputPhoneNumber() {
     return TextFormField(
+      controller: _textEditingController,
       validator: (value) => phoneNumberPattern.hasMatch(value!.split('-').reduce((a, b) => a + b)) ? null : '',
       onFieldSubmitted: (value) {
         if (value.isNotEmpty && phoneNumberPattern.hasMatch(value.split('-').reduce((a, b) => a + b))) {
+          phoneController.sendPhoneNumber(value);
           phoneController.isSubmittedPhoneNumber = true;
         }
       },
@@ -88,7 +91,7 @@ class PhonePage extends StatelessWidget {
                     validator: (value) => value?.isEmpty ?? true ? '' : null,
                     onFieldSubmitted: (value) {
                       if (value.isNotEmpty && value.length == 6) {
-                        phoneController.isValid = true;
+                        phoneController.sendCode(value);
                       }
                     },
                     decoration: InputDecoration(
@@ -100,7 +103,7 @@ class PhonePage extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => phoneController.sendPhoneNumber(_textEditingController.text),
                   child: Text(
                     '재발송',
                     style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
