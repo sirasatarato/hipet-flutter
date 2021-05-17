@@ -49,7 +49,7 @@ class PickTopicPage extends StatelessWidget {
 
   Widget buildSkipPage() {
     return GestureDetector(
-      onTap: selectCompleteEvent,
+      onTap: () => selectCompleteEvent('00000000'),
       child: Text(
         '다음에 선택하기',
         style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
@@ -91,15 +91,15 @@ class PickTopicPage extends StatelessWidget {
         isColored: _topicController.isAnyClicked(),
         clickEvent: () {
           if (_topicController.isAnyClicked()) {
-            selectCompleteEvent();
+            selectCompleteEvent(_topicController.binaryTopics());
           }
         },
       ),
     );
   }
 
-  void selectCompleteEvent() async {
-    bool isSuccess = await _signUpController.signUpApi(_topicController.binaryTopics());
+  void selectCompleteEvent(String survey) async {
+    bool isSuccess = await _signUpController.signUpApi(survey);
 
     if (isSuccess) {
       Get.to(() => JoinFinPage());

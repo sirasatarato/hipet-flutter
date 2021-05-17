@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
 import 'package:hipet/src/controller/login_controller.dart';
+import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/pages/content/main_content_page.dart';
 import 'package:hipet/src/pages/sign/policy_page.dart';
@@ -9,15 +10,37 @@ import 'package:hipet/src/widgets/logo.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
 class SignPage extends StatelessWidget {
-  final LoginController _loginController = Get.find();
+  static final UserInfoController _userInfoController = Get.find();
+  static final LoginController _loginController = Get.find();
 
-  final widgetButtons = const [
-    WidestButton('카카오톡으로 계속 진행', imageAsset: 'assets/icon/ic_KakaoTalk.png'),
-    WidestButton('네이버로 계속 진행', imageAsset: 'assets/icon/ic_naver.png'),
-    WidestButton('트위터로 계속 진행', imageAsset: 'assets/icon/ic_twitter.png'),
-    WidestButton('구글로 계속 진행', imageAsset: 'assets/icon/ic_Google.png'),
-    WidestButton('페이스북으로 계속 진행', imageAsset: 'assets/icon/ic_facebook.png'),
+  final widgetButtons = [
+    WidestButton(
+      '구글로 계속 진행',
+      imageAsset: 'assets/icon/ic_Google.png',
+      clickEvent: () => clickLoginEvent(
+        SignType.GOOGLE,
+        _userInfoController.signInWithGoogle,
+      ),
+    ),
+    WidestButton(
+      '페이스북으로 계속 진행',
+      imageAsset: 'assets/icon/ic_facebook.png',
+      clickEvent: () => clickLoginEvent(
+        SignType.FACEBOOK,
+        _userInfoController.signInWithFacebook,
+      ),
+    ),
   ];
+
+  static void clickLoginEvent(SignType type, VoidCallback toLogin) {
+    toLogin();
+
+    if (_loginController.isLogin) {
+      Get.to(() => MainContentPage());
+    } else {
+      Get.to(() => PolicyPage(type), binding: SignBinding());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +52,7 @@ class SignPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Logo(),
+            ...List.generate(4, (index) => SizedBox()),
             Obx(
               () => WidestButton(
                 '전화번호로 ' + (_loginController.isLogin ? '계속 진행' : '가입'),
@@ -37,22 +61,11 @@ class SignPage extends StatelessWidget {
               ),
             ),
             ...widgetButtons,
-            const SizedBox(),
             Obx(() => buildSignBottom()),
           ],
         ),
       ),
     );
-  }
-
-  void clickLoginEvent(SignType type, VoidCallback toLogin) {
-    toLogin();
-
-    if (_loginController.isLogin) {
-      Get.to(() => MainContentPage());
-    } else {
-      Get.to(() => PolicyPage(type), binding: SignBinding());
-    }
   }
 
   Row buildSignBottom() {

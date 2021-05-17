@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/pages/sign/phone_page.dart';
 import 'package:hipet/src/pages/sign/pick_topic_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hipet/src/util/sharedpreferences_manager.dart';
 
 class PolicyController extends GetxController {
   final _isChecked = [false, false, false].obs;
@@ -43,8 +43,7 @@ class PolicyController extends GetxController {
   }
 
   void savePolicy() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
     // ignore: invalid_use_of_protected_member
-    preferences.setBool("notification", _isChecked.value.last);
+    SharedPreferencesManager().notification = _isChecked.value.last;
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/phone_controller.dart';
+import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/pages/sign/pick_topic_page.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
@@ -91,7 +92,9 @@ class PhonePage extends StatelessWidget {
                     validator: (value) => value?.isEmpty ?? true ? '' : null,
                     onFieldSubmitted: (value) {
                       if (value.isNotEmpty && value.length == 6) {
-                        phoneController.sendCode(value);
+                        phoneController.sendCode(value).then((value) {
+                          if(value != null) UserInfoController.saveToken(value);
+                        });
                       }
                     },
                     decoration: InputDecoration(

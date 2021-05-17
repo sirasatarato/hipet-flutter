@@ -8,9 +8,14 @@ import 'package:hipet/src/pages/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hipet/src/configs/binding.dart';
 
+import 'src/util/sharedpreferences_manager.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // ignore: invalid_use_of_visible_for_testing_member
+  SharedPreferences.setMockInitialValues({});
+  SharedPreferencesManager().preferences = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
 

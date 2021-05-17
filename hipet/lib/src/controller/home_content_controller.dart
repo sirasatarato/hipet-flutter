@@ -7,6 +7,7 @@ import 'package:hipet/src/model/post_model.dart';
 class HomeContentController extends GetxController {
   var _posts = <Post>[].obs;
 
+  // ignore: invalid_use_of_protected_member
   List<String> getPostMedia() => _posts.value.map((e) => e.media).toList();
 
   void getPosts() async {

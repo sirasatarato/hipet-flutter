@@ -18,26 +18,20 @@ class PhoneController extends GetxController {
   sendPhoneNumber(String phone) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '+82 $phone',
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        var signIn = await FirebaseAuth.instance.signInWithCredential(credential);
-        if (signIn.user != null) {
-          // 성공
-        }
-      },
+      verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (FirebaseAuthException e) => print(e.message),
-      codeSent: (String verificationId, int? forceResendingToken) {
-        id = verificationId;
-      },
+      codeSent: (String verificationId, int? forceResendingToken) => id = verificationId,
       codeAutoRetrievalTimeout: (String verificationId) {},
       timeout: Duration(seconds: 120),
     );
   }
 
-  sendCode(String code) async {
+  Future<String?> sendCode(String code) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: id, smsCode: code);
     var signIn = await auth.signInWithCredential(credential);
-    if(signIn.user != null) {
+    if (signIn.user != null) {
       isValid = true;
+      return await signIn.user!.getIdToken();
     }
   }
 }
