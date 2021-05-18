@@ -1,58 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:hipet/src/widgets/circular_image_view.dart';
 
 class MyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: Text('마이페이지'),
-        actions: [SvgPicture.asset('assets/icon/svg/bell.svg')],
-      ),
+      appBar: buildAppBar(),
       body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 112,
-              automaticallyImplyLeading: false,
-              flexibleSpace: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 16, 24),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(width: 16),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Spacer(),
-                        Text('밥을 많이 먹는 요요'),
-                        Expanded(child: Text('edit')),
-                        Spacer(),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ];
-        },
+        headerSliverBuilder: (_, __) => [buildHeader()],
         body: GridView.count(
-          childAspectRatio: Get.width / Get.height,
+          childAspectRatio: 3 / 5,
           crossAxisCount: 3,
+          children: [],
+        ),
+      ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      elevation: 0,
+      title: Text(
+        '마이페이지',
+        style: Get.textTheme.headline1!.copyWith(color: Colors.white),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: SvgPicture.asset('assets/icon/svg/bell.svg'),
+        )
+      ],
+    );
+  }
+
+  SliverAppBar buildHeader() {
+    return SliverAppBar(
+      expandedHeight: Get.height / 6,
+      automaticallyImplyLeading: false,
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 16, 24),
+        child: Row(
           children: [
-            Container(),
-            Container(color: Colors.grey),
-            Container(),
-            Container(color: Colors.grey),
+            CircularImageView(''),
+            SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildUserName(),
+                SizedBox(height: 16),
+                buildEditButton(),
+              ],
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Flexible buildUserName() {
+    return Flexible(
+      child: Text(
+        '밥을 많이 먹는 요요',
+        style: Get.textTheme.headline1!.copyWith(color: Colors.white),
+      ),
+    );
+  }
+
+  Flexible buildEditButton() {
+    return Flexible(
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: 36,
+          height: 18,
+          decoration: BoxDecoration(
+            color: Get.theme.accentColor,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            child: Text(
+              'edit',
+              style: Get.textTheme.caption!.copyWith(color: Colors.white),
+            ),
+          ),
         ),
       ),
     );
