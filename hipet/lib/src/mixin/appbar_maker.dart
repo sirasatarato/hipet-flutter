@@ -33,4 +33,19 @@ mixin AppbarMaker {
       ],
     );
   }
+
+  AppBar buildAppBarWithVideos() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SvgPicture.asset('assets/icon/svg/thumbnail_recommend.svg'),
+          SvgPicture.asset('assets/icon/svg/bell.svg'),
+        ],
+      ),
+    );
+  }
 }
