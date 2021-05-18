@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/policy_controller.dart';
+import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/widgets/policy_check_box.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
-class PolicyPage extends StatelessWidget {
+class PolicyPage extends StatelessWidget with AppbarMaker {
   final PolicyController _policyController = Get.find();
 
   PolicyPage(SignType type) {
@@ -14,30 +14,12 @@ class PolicyPage extends StatelessWidget {
     _policyController.setNextPage(type);
   }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      centerTitle: true,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(MfgLabs.left),
-        iconSize: 16,
-        color: Colors.black,
-        onPressed: () => Get.back(),
-      ),
-      title: Text(
-        '이용 약관',
-        style: Get.textTheme.headline1,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar(),
+      appBar: buildAppBarWithBackKey('이용 약관'),
       body: Column(
         children: [
           Padding(

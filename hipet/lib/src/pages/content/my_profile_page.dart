@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:hipet/src/mixin/appbar_maker.dart';
+import 'package:hipet/src/pages/content/my_profile_edit_page.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';
+import 'package:hipet/src/widgets/edit_button.dart';
 
-class MyProfilePage extends StatelessWidget {
+class MyProfilePage extends StatelessWidget with AppbarMaker {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBarWithNotification('마이페이지'),
       body: NestedScrollView(
         headerSliverBuilder: (_, __) => [buildHeader()],
         body: GridView.count(
@@ -16,23 +18,6 @@ class MyProfilePage extends StatelessWidget {
           children: [],
         ),
       ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      title: Text(
-        '마이페이지',
-        style: Get.textTheme.headline1!.copyWith(color: Colors.white),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: SvgPicture.asset('assets/icon/svg/bell.svg'),
-        )
-      ],
     );
   }
 
@@ -50,43 +35,21 @@ class MyProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildUserName(),
+                Flexible(
+                  child: Text(
+                    '밥을 많이 먹는 요요',
+                    style: Get.textTheme.headline1!.copyWith(color: Colors.white),
+                  ),
+                ),
                 SizedBox(height: 16),
-                buildEditButton(),
+                Flexible(
+                  child: EditButton(
+                    onTap: () => Get.to(() => MyProfileEditPage()),
+                  ),
+                )
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Flexible buildUserName() {
-    return Flexible(
-      child: Text(
-        '밥을 많이 먹는 요요',
-        style: Get.textTheme.headline1!.copyWith(color: Colors.white),
-      ),
-    );
-  }
-
-  Flexible buildEditButton() {
-    return Flexible(
-      child: GestureDetector(
-        onTap: () {},
-        child: Container(
-          width: 36,
-          height: 18,
-          decoration: BoxDecoration(
-            color: Get.theme.accentColor,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Center(
-            child: Text(
-              'edit',
-              style: Get.textTheme.caption!.copyWith(color: Colors.white),
-            ),
-          ),
         ),
       ),
     );

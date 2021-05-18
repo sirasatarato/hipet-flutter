@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:hipet/src/mixin/appbar_maker.dart';
 
-class LikePage extends StatelessWidget {
+class LikePage extends StatelessWidget with AppbarMaker {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('좋아요'),
-        actions: [ SvgPicture.asset('assets/icon/svg/bell.svg') ],
-      ),
+      appBar: buildAppBarWithNotification('좋아요'),
       body: GridView.count(
         childAspectRatio: Get.width / Get.height,
         crossAxisCount: 3,
-        children: [
-          Container(),
-          Container(color: Colors.grey),
-          Container(),
-          Container(color: Colors.grey),
-        ],
+        children: [],
       ),
     );
   }

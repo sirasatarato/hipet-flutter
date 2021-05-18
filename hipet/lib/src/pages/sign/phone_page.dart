@@ -1,39 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttericon/mfg_labs_icons.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/phone_controller.dart';
 import 'package:hipet/src/controller/user_info_controller.dart';
+import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/pages/sign/pick_topic_page.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
-class PhonePage extends StatelessWidget {
+class PhonePage extends StatelessWidget with AppbarMaker {
   final TextEditingController _textEditingController = TextEditingController();
   final RegExp phoneNumberPattern = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
   final PhoneController phoneController = Get.find();
 
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      centerTitle: true,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(MfgLabs.left),
-        iconSize: 16,
-        color: Colors.black,
-        onPressed: () => Get.back(),
-      ),
-      title: Text(
-        '전화번호로 가입',
-        style: Get.textTheme.headline1,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBarWithBackKey('전화번호로 가입'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 32),
         child: Column(
@@ -93,7 +75,7 @@ class PhonePage extends StatelessWidget {
                     onFieldSubmitted: (value) {
                       if (value.isNotEmpty && value.length == 6) {
                         phoneController.sendCode(value).then((value) {
-                          if(value != null) UserInfoController.saveToken(value);
+                          if (value != null) UserInfoController.saveToken(value);
                         });
                       }
                     },
