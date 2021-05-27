@@ -13,19 +13,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^1.1.4
   firebase_core: ^1.1.1
-#  flutter_facebook_auth: ^3.3.3+1
+  google_sign_in: ^5.0.4
 
   flutter_svg: ^0.21.0+1
   fluttericon: ^2.0.0
 
-  shared_preferences: ^2.0.5
   file_picker: ^3.0.1
   dio: ^4.0.0
   get: ^4.1.4
   video_player: ^2.1.1
-  bot_toast: ^4.0.1
-  google_sign_in: ^5.0.4
   fluttertoast: ^8.0.7
+
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,5 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/sign_up_controller.dart';
 import 'package:hipet/src/controller/topic_controller.dart';
@@ -105,7 +105,7 @@ class PickTopicPage extends StatelessWidget {
     if (isSuccess) {
       Get.to(() => JoinFinPage());
     } else {
-      BotToast.showText(text: '회원가입에 실패하였습니다. 다시 시도해주시길 바랍니다.');
+      Fluttertoast.showToast(msg: '시간 초과가 되셨습니다. 다시 한 번 인증해 주십시오.');
       Get.offAll(() => SignPage());
     }
   }

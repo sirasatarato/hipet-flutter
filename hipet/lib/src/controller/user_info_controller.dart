@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hipet/src/util/sharedpreferences_manager.dart';
+import 'package:hipet/src/util/database_helper.dart';
 
 class UserInfoController extends GetxController {
   final auth = FirebaseAuth.instance;
-  static var firebaseToken = SharedPreferencesManager().firebaseToken;
+  static var firebaseToken = DatabaseHelper().firebaseToken;
 
   static void saveToken(String token) {
     firebaseToken = token;
-    SharedPreferencesManager().firebaseToken = token;
+    DatabaseHelper().firebaseToken = token;
     print('currentToken is $token');
   }
 

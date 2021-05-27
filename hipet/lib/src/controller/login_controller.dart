@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hipet/src/util/sharedpreferences_manager.dart';
+import 'package:hipet/src/util/database_helper.dart';
 
 class LoginController extends GetxController {
   Rx<bool> _isLogin = false.obs;
@@ -7,7 +7,7 @@ class LoginController extends GetxController {
   bool get isLogin => _isLogin.value;
 
   set isLogin(bool value) {
-    SharedPreferencesManager().isLogin = value;
+    DatabaseHelper().isLogin = value;
     _isLogin.value = value;
   }
 

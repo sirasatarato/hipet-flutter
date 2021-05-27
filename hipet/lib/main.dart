@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,18 +5,17 @@ import 'package:hipet/src/configs/themes.dart';
 import 'package:hipet/src/controller/login_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/pages/splash_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 import 'package:hipet/src/configs/binding.dart';
-
-import 'src/util/sharedpreferences_manager.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  // ignore: invalid_use_of_visible_for_testing_member
-  SharedPreferences.setMockInitialValues({});
-  SharedPreferencesManager().preferences = await SharedPreferences.getInstance();
+  await Hive.initFlutter();
+  await Hive.openBox('sign');
+  await Hive.openBox('content');
   runApp(MyApp());
 }
 
@@ -29,8 +27,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: InitBinding(),
       debugShowCheckedModeBanner: false,
-      builder: BotToastInit(),
-      navigatorObservers: [BotToastNavigatorObserver()],
       theme: getThemeData(),
       home: FutureBuilder(
         future: _getIsLogin(),
@@ -47,8 +43,8 @@ class MyApp extends StatelessWidget {
   }
 
   _getIsLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLogin = (prefs.getBool('login') ?? false);
+    Box box = Hive.box('sign');
+    bool isLogin = (box.get('login') ?? false);
     print('UserLogin: $isLogin');
     return isLogin;
   }

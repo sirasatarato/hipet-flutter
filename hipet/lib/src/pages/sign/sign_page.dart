@@ -16,6 +16,7 @@ class SignPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(msg: 'fiwefjuwehfehwuhfuehu', toastLength: Toast.LENGTH_LONG);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),

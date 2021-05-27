@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/util/sharedpreferences_manager.dart';
+import 'package:hipet/src/util/database_helper.dart';
 
 class PolicyController extends GetxController {
   final _isChecked = [false, false, false].obs;
@@ -20,5 +20,5 @@ class PolicyController extends GetxController {
 
   void changeAllBox(bool value) => _isChecked.value = [value, value, value];
 
-  void savePolicy() => SharedPreferencesManager().notification = _isChecked.last;
+  void savePolicy() => DatabaseHelper().notification = _isChecked.last;
 }
