@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hipet/src/util/sharedpreferences_manager.dart';
@@ -27,9 +27,9 @@ class UserInfoController extends GetxController {
 
   void signInWithFacebook() async {
     try {
-      final LoginResult login = await FacebookAuth.instance.login();
-      final facebookAuthCredential = FacebookAuthProvider.credential(login.accessToken!.token);
-      saveToken(facebookAuthCredential.idToken!);
+      // final LoginResult login = await FacebookAuth.instance.login();
+      // final facebookAuthCredential = FacebookAuthProvider.credential(login.accessToken!.token);
+      // saveToken(facebookAuthCredential.idToken!);
     } catch(e) {
       e.printError();
       // Fluttertoast.showToast(msg: '페이스북 로그인 실패하셨습니다.');
