@@ -33,16 +33,18 @@ class PhonePage extends StatelessWidget with AppbarMaker {
     );
   }
 
-  bool checkPattern(String value) => phoneNumberPattern.hasMatch(value.split('-').reduce((a, b) => a + b));
+  bool checkPattern(String value) {
+    value = value.replaceAll('-', '');
+    return phoneNumberPattern.hasMatch(value) && value.length == 11;
+  }
 
   TextFormField buildInputPhoneNumber() {
     return TextFormField(
       controller: _textEditingController,
       keyboardType: TextInputType.phone,
       decoration: buildInputDecoration('전화번호'),
-      validator: (value) => checkPattern(value!) ? null : ' ',
       onFieldSubmitted: (value) {
-        if (value.isNotEmpty && checkPattern(value)) phoneController.sendPhoneNumber(value);
+        if (checkPattern(value)) phoneController.sendPhoneNumber(value);
       },
     );
   }
@@ -65,7 +67,6 @@ class PhonePage extends StatelessWidget with AppbarMaker {
                     maxLength: 6,
                     keyboardType: TextInputType.number,
                     decoration: buildInputDecoration('인증코드'),
-                    validator: (value) => value?.isEmpty ?? false ? null : ' ',
                     onFieldSubmitted: (value) {
                       if (value.isNotEmpty && value.length == 6) phoneController.sendCode(value);
                     },

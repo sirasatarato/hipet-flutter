@@ -9,7 +9,6 @@ class SignUpController extends getx.GetxController {
       baseUrl: 'http://hojoondev.kro.kr:5003',
       contentType: Headers.jsonContentType,
       headers: {'firebaseToken': UserInfoController.firebaseToken},
-
     );
 
     try {

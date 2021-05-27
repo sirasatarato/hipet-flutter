@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
 import 'package:hipet/src/controller/login_controller.dart';
@@ -16,9 +15,6 @@ class SignPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: 'fdsfdsprintError()');
-    // Fluttertoast.showToast(msg: '시간 초과가 되셨습니다. 다시 한 번 인증해 주십시오.');
-
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),

@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/sign_up_controller.dart';
@@ -104,7 +105,7 @@ class PickTopicPage extends StatelessWidget {
     if (isSuccess) {
       Get.to(() => JoinFinPage());
     } else {
-      Get.snackbar('회원가입에 실패하였습니다.', '다시 시도해주시길 바랍니다.');
+      BotToast.showText(text: '회원가입에 실패하였습니다. 다시 시도해주시길 바랍니다.');
       Get.offAll(() => SignPage());
     }
   }

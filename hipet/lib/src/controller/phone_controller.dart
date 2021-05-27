@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/user_info_controller.dart';
@@ -21,17 +22,17 @@ class PhoneController extends GetxController {
       phoneNumber: '+82 $phone',
       verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (FirebaseAuthException e) {
-        // Fluttertoast.showToast(msg: '올바르지 않은 전화번호를 입력하셨습니다.');
+        BotToast.showText(text: '올바르지 않은 전화번호를 입력하셨습니다.');
         print(e.message);
       },
       codeSent: (String verificationId, int? forceResendingToken) {
         id = verificationId;
         isSubmittedPhoneNumber = true;
-        // Fluttertoast.showToast(msg: '인증코드가 보내졌습니다.');
+        BotToast.showText(text: '인증코드가 보내졌습니다.');
       },
       codeAutoRetrievalTimeout: (String verificationId) => () {
         isSubmittedPhoneNumber = false;
-        // Fluttertoast.showToast(msg: '시간 초과가 되셨습니다. 다시 한 번 인증해 주십시오.');
+        BotToast.showText(text: '시간 초과가 되셨습니다. 다시 한 번 인증해 주십시오.');
       },
       timeout: Duration(seconds: 120),
     );
