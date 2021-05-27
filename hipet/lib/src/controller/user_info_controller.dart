@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hipet/src/util/sharedpreferences_manager.dart';
@@ -21,7 +21,7 @@ class UserInfoController extends GetxController {
       saveToken(googleAuth.idToken!);
     } catch(e) {
       e.printError();
-      // Fluttertoast.showToast(msg: '구글 로그인 실패하셨습니다.');
+      Fluttertoast.showToast(msg: '구글 로그인 실패하셨습니다.');
     }
   }
 

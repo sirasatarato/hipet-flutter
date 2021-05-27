@@ -25,6 +25,7 @@ dependencies:
   video_player: ^2.1.1
   bot_toast: ^4.0.1
   google_sign_in: ^5.0.4
+  fluttertoast: ^8.0.7
 
 dev_dependencies:
   flutter_test:
