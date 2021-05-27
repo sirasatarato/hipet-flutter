@@ -9,10 +9,13 @@ class SignUpController extends getx.GetxController {
       baseUrl: 'http://hojoondev.kro.kr:5003',
       contentType: Headers.jsonContentType,
       headers: {'firebaseToken': UserInfoController.firebaseToken},
+
     );
 
     try {
-      Dio dio = Dio(options)..interceptors.add(LogInterceptor());
+      Dio dio = Dio(options);
+      dio.interceptors.add(LogInterceptor());
+
       var response = await dio.post('/api/auth', data: {'survey': survey});
       return response.statusCode == 201;
     } on DioError catch (e) {

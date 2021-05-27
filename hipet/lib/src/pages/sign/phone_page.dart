@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/phone_controller.dart';
-import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/pages/sign/pick_topic_page.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
@@ -34,23 +33,17 @@ class PhonePage extends StatelessWidget with AppbarMaker {
     );
   }
 
+  bool checkPattern(String value) => phoneNumberPattern.hasMatch(value.split('-').reduce((a, b) => a + b));
+
   TextFormField buildInputPhoneNumber() {
     return TextFormField(
       controller: _textEditingController,
-      validator: (value) => phoneNumberPattern.hasMatch(value!.split('-').reduce((a, b) => a + b)) ? null : '',
-      onFieldSubmitted: (value) {
-        if (value.isNotEmpty && phoneNumberPattern.hasMatch(value.split('-').reduce((a, b) => a + b))) {
-          phoneController.sendPhoneNumber(value);
-          phoneController.isSubmittedPhoneNumber = true;
-        }
-      },
       keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-        hintText: '정보를 입력해주세요.',
-        errorStyle: TextStyle(height: 0),
-        border: OutlineInputBorder(),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Get.theme.accentColor)),
-      ),
+      decoration: buildInputDecoration('전화번호'),
+      validator: (value) => checkPattern(value!) ? null : ' ',
+      onFieldSubmitted: (value) {
+        if (value.isNotEmpty && checkPattern(value)) phoneController.sendPhoneNumber(value);
+      },
     );
   }
 
@@ -71,20 +64,11 @@ class PhonePage extends StatelessWidget with AppbarMaker {
                   child: TextFormField(
                     maxLength: 6,
                     keyboardType: TextInputType.number,
-                    validator: (value) => value?.isEmpty ?? true ? '' : null,
+                    decoration: buildInputDecoration('인증코드'),
+                    validator: (value) => value?.isEmpty ?? false ? null : ' ',
                     onFieldSubmitted: (value) {
-                      if (value.isNotEmpty && value.length == 6) {
-                        phoneController.sendCode(value).then((value) {
-                          if (value != null) UserInfoController.saveToken(value);
-                        });
-                      }
+                      if (value.isNotEmpty && value.length == 6) phoneController.sendCode(value);
                     },
-                    decoration: InputDecoration(
-                      hintText: '정보를 입력해주세요.',
-                      errorStyle: TextStyle(height: 0),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Get.theme.accentColor)),
-                    ),
                   ),
                 ),
                 TextButton(
@@ -99,6 +83,15 @@ class PhonePage extends StatelessWidget with AppbarMaker {
           ],
         ),
       ),
+    );
+  }
+
+  InputDecoration buildInputDecoration(String hint) {
+    return InputDecoration(
+      hintText: '$hint를 입력해주세요.',
+      errorStyle: TextStyle(height: 0),
+      border: OutlineInputBorder(),
+      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Get.theme.accentColor)),
     );
   }
 

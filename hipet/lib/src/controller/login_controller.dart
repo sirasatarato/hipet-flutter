@@ -11,7 +11,5 @@ class LoginController extends GetxController {
     _isLogin.value = value;
   }
 
-  void switchIsLogin() {
-    _isLogin.value = !_isLogin.value;
-  }
+  void switchIsLogin() => _isLogin.value = !_isLogin.value;
 }

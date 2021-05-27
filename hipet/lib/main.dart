@@ -13,6 +13,7 @@ import 'src/util/sharedpreferences_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   // ignore: invalid_use_of_visible_for_testing_member
   SharedPreferences.setMockInitialValues({});
   SharedPreferencesManager().preferences = await SharedPreferences.getInstance();
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       home: FutureBuilder(
         future: _getIsLogin(),
         builder: (context, AsyncSnapshot snapshot) {
-          if(snapshot.hasData) {
+          if(snapshot.connectionState == ConnectionState.done) {
             _loginController.isLogin = snapshot.data;
             return SignPage();
           }

@@ -15,14 +15,24 @@ class UserInfoController extends GetxController {
   }
 
   void signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-    saveToken(googleAuth.idToken!);
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      saveToken(googleAuth.idToken!);
+    } catch(e) {
+      e.printError();
+      // Fluttertoast.showToast(msg: '구글 로그인 실패하셨습니다.');
+    }
   }
 
   void signInWithFacebook() async {
-    final LoginResult login = await FacebookAuth.instance.login();
-    final facebookAuthCredential = FacebookAuthProvider.credential(login.accessToken!.token);
-    saveToken(facebookAuthCredential.idToken!);
+    try {
+      final LoginResult login = await FacebookAuth.instance.login();
+      final facebookAuthCredential = FacebookAuthProvider.credential(login.accessToken!.token);
+      saveToken(facebookAuthCredential.idToken!);
+    } catch(e) {
+      e.printError();
+      // Fluttertoast.showToast(msg: '페이스북 로그인 실패하셨습니다.');
+    }
   }
 }

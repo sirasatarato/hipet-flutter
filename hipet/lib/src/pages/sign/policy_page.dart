@@ -10,8 +10,7 @@ class PolicyPage extends StatelessWidget with AppbarMaker {
   final PolicyController _policyController = Get.find();
 
   PolicyPage(SignType type) {
-    print(type);
-    _policyController.setNextPage(type);
+    _policyController.nextPage = type.getNextPage();
   }
 
   @override

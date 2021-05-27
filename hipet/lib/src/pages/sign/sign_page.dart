@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
 import 'package:hipet/src/controller/login_controller.dart';
@@ -13,37 +14,11 @@ class SignPage extends StatelessWidget {
   static final UserInfoController _userInfoController = Get.find();
   static final LoginController _loginController = Get.find();
 
-  final widgetButtons = [
-    WidestButton(
-      '구글로 계속 진행',
-      imageAsset: 'assets/icon/ic_Google.png',
-      clickEvent: () => clickLoginEvent(
-        SignType.GOOGLE,
-        _userInfoController.signInWithGoogle,
-      ),
-    ),
-    WidestButton(
-      '페이스북으로 계속 진행',
-      imageAsset: 'assets/icon/ic_facebook.png',
-      clickEvent: () => clickLoginEvent(
-        SignType.FACEBOOK,
-        _userInfoController.signInWithFacebook,
-      ),
-    ),
-  ];
-
-  static void clickLoginEvent(SignType type, VoidCallback toLogin) {
-    toLogin();
-
-    if (_loginController.isLogin) {
-      Get.to(() => MainContentPage());
-    } else {
-      Get.to(() => PolicyPage(type), binding: SignBinding());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    Fluttertoast.showToast(msg: 'fdsfdsprintError()');
+    // Fluttertoast.showToast(msg: '시간 초과가 되셨습니다. 다시 한 번 인증해 주십시오.');
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
@@ -57,15 +32,38 @@ class SignPage extends StatelessWidget {
               () => WidestButton(
                 '전화번호로 ' + (_loginController.isLogin ? '계속 진행' : '가입'),
                 imageAsset: 'assets/icon/ic_person.png',
-                clickEvent: () => clickLoginEvent(SignType.PHONE, () {}),
+                clickEvent: () => clickLoginEvent(SignType.PHONE),
               ),
             ),
-            ...widgetButtons,
+            WidestButton(
+              '구글로 계속 진행',
+              imageAsset: 'assets/icon/ic_Google.png',
+              clickEvent: () {
+                _userInfoController.signInWithGoogle();
+                clickLoginEvent(SignType.GOOGLE);
+              },
+            ),
+            WidestButton(
+              '페이스북으로 계속 진행',
+              imageAsset: 'assets/icon/ic_facebook.png',
+              clickEvent: () {
+                _userInfoController.signInWithFacebook();
+                clickLoginEvent(SignType.FACEBOOK);
+              },
+            ),
             Obx(() => buildSignBottom()),
           ],
         ),
       ),
     );
+  }
+
+  void clickLoginEvent(SignType type) {
+    if (_loginController.isLogin) {
+      Get.to(() => MainContentPage());
+    } else {
+      Get.to(() => PolicyPage(type), binding: SignBinding());
+    }
   }
 
   Row buildSignBottom() {
