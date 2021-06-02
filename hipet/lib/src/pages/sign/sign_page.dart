@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
 import 'package:hipet/src/controller/login_controller.dart';
@@ -16,7 +15,6 @@ class SignPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Fluttertoast.showToast(msg: 'fiwefjuwehfehwuhfuehu', toastLength: Toast.LENGTH_LONG);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
@@ -25,7 +23,7 @@ class SignPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Logo(),
-            ...List.generate(4, (index) => SizedBox()),
+            for(var i = 0; i < 5; i++) SizedBox(),
             Obx(
               () => WidestButton(
                 '전화번호로 ' + (_loginController.isLogin ? '계속 진행' : '가입'),
@@ -41,14 +39,6 @@ class SignPage extends StatelessWidget {
                 clickLoginEvent(SignType.GOOGLE);
               },
             ),
-            WidestButton(
-              '페이스북으로 계속 진행',
-              imageAsset: 'assets/icon/ic_facebook.png',
-              clickEvent: () {
-                _userInfoController.signInWithFacebook();
-                clickLoginEvent(SignType.FACEBOOK);
-              },
-            ),
             Obx(() => buildSignBottom()),
           ],
         ),
@@ -58,7 +48,7 @@ class SignPage extends StatelessWidget {
 
   void clickLoginEvent(SignType type) {
     if (_loginController.isLogin) {
-      Get.to(() => MainContentPage());
+      Get.to(() => MainContentPage(), binding: ContentBinding());
     } else {
       Get.to(() => PolicyPage(type), binding: SignBinding());
     }

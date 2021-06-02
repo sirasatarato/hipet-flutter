@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget with AppbarMaker {
       appBar: buildAppBarWithVideos(),
       body: Stack(
         children: [
-          VideoPage(),
+          // VideoPage(),
           Padding(
             padding: const EdgeInsets.all(16),
             child: buildActions(),
@@ -35,9 +35,8 @@ class HomePage extends StatelessWidget with AppbarMaker {
     return Container(
       alignment: Alignment.bottomRight,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          SizedBox(height: Get.height / 2),
           Container(
             width: Get.width * 0.1,
             height: Get.width * 0.1,
@@ -47,8 +46,11 @@ class HomePage extends StatelessWidget with AppbarMaker {
             ),
             child: CircularImageView(''),
           ),
+          SizedBox(height: 8),
           PostLikeView(),
+          SizedBox(height: 8),
           PostCommentCountView(),
+          SizedBox(height: 8),
           SvgPicture.asset('assets/icon/svg/share.svg'),
         ],
       ),

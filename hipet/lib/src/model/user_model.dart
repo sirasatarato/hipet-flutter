@@ -1,7 +1,25 @@
-class User {
+class UserModel {
   final String name;
-  final String imageUrl;
-  final String uuid;
+  final String uid;
+  final String profileImg;
+  final int follower;
+  final int following;
 
-  User(this.name, this.imageUrl, this.uuid);
+  UserModel(
+    this.name,
+    this.uid,
+    this.profileImg,
+    this.follower,
+    this.following,
+  );
+
+  factory UserModel.fromJson(Map<String, dynamic> data) {
+    return UserModel(
+      data['name'],
+      data['uid'],
+      data['profileImg'],
+      data['follower'],
+      data['following'],
+    );
+  }
 }

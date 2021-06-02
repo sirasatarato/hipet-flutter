@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/themes.dart';
 import 'package:hipet/src/controller/login_controller.dart';
+import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/pages/splash_page.dart';
 import 'package:hive/hive.dart';
-import 'package:hipet/src/configs/binding.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialBinding: InitBinding(),
+      initialBinding: BindingsBuilder(() => Get.put<UserInfoController>(UserInfoController())),
       debugShowCheckedModeBanner: false,
       theme: getThemeData(),
       home: FutureBuilder(
