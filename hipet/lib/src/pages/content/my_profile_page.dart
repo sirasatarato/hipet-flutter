@@ -45,11 +45,7 @@ class MyProfilePage extends StatelessWidget with AppbarMaker {
                   ),
                 ),
                 SizedBox(height: 16),
-                Flexible(
-                  child: EditButton(
-                    onTap: () => Get.to(() => MyProfileEditPage()),
-                  ),
-                )
+                Flexible(child: EditButton(onTap: () => Get.to(() => MyProfileEditPage())))
               ],
             ),
           ],

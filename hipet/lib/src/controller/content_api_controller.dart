@@ -12,14 +12,16 @@ class ContentApiController extends Get.GetxController {
     headers: {'firebaseToken': UserInfoController.firebaseToken},
   );
 
-  UserModel? user;
+  Get.Rx<UserModel?> _user = UserModel('', '', '', 0, 0).obs;
+
+  UserModel? get user => _user.value;
 
   ContentApiController() {
     dio.interceptors.add(
       InterceptorsWrapper(
         onError: (error, handler) async {
           if (error.response?.statusCode != 404) {
-            Map<String, String> data = error.response!.data;
+            var data = error.response!.data;
             print('errorMessage: ${data['errorMessage']}');
             print('errorCode: ${data['errorCode']}');
             print('errorDescription: ${data['errorDescription']}');
@@ -39,7 +41,7 @@ class ContentApiController extends Get.GetxController {
 
   void getMyProfileData() async {
     var response = await dio.get('api/auth');
-    user = UserModel.fromJson(response.data);
+    _user.value = UserModel.fromJson(response.data);
   }
 
   void getPosts() async {
@@ -54,7 +56,7 @@ class ContentApiController extends Get.GetxController {
     });
 
     if (response.statusCode == 201) {
-      user = UserModel(
+      _user.value = UserModel(
         name ?? user!.name,
         user!.uid,
         profileImage ?? user!.profileImg,
@@ -64,7 +66,22 @@ class ContentApiController extends Get.GetxController {
     }
   }
 
-  Future<void> getImage(String imageUrl) async => await dio.get('api/loadimage/$imageUrl');
+  Future<void> getImage(String imageUrl) async {
+    // if(imageUrl.isNotEmpty) await dio.get('api/loadimage/$imageUrl');
+  }
+
+  Future<void> uploadImage(String imageUrl, String name) async {
+    var formData = FormData.fromMap({
+      'media': await MultipartFile.fromFile(imageUrl, filename: name),
+    });
+    var newDio = Dio(BaseOptions(
+      baseUrl: 'http://hojoondev.kro.kr:5003/',
+      contentType: Headers.formUrlEncodedContentType,
+      headers: {'firebaseToken': UserInfoController.firebaseToken},
+    ));
+
+    await newDio.post('api/media', data: formData);
+  }
 
   Future<String> reloadCurrentUserForToken() async {
     User oldUser = FirebaseAuth.instance.currentUser!;

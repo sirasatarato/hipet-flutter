@@ -5,7 +5,6 @@ import 'package:hipet/src/controller/policy_controller.dart';
 import 'package:hipet/src/controller/sign_up_controller.dart';
 import 'package:hipet/src/controller/topic_controller.dart';
 import 'package:hipet/src/controller/upload_post_controller.dart';
-import 'package:hipet/src/controller/user_info_controller.dart';
 
 class SignBinding implements Bindings {
   @override

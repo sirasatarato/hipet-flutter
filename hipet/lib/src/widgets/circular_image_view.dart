@@ -11,7 +11,7 @@ class CircularImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: imageUrl.isNotEmpty ? _contentApiController.getImage(imageUrl) : Future.delayed(Duration(seconds: 1)),
+      future: _contentApiController.getImage(imageUrl),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         return Container(
           width: 80,
