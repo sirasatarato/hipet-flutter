@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/content_api_controller.dart';
+import 'package:hipet/src/controller/write_content_controller.dart';
 import 'package:hipet/src/widgets/back_key.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,7 +16,7 @@ class WritePostPage extends StatefulWidget {
 }
 
 class _WritePostPageState extends State<WritePostPage> {
-  final ContentApiController _contentApiController = Get.find();
+  final WriteContentController _writeContentController = Get.find();
   final contentTextEditingController = TextEditingController();
   late VideoPlayerController _controller;
 
@@ -37,7 +37,7 @@ class _WritePostPageState extends State<WritePostPage> {
         actions: [
           TextButton(
             onPressed: () {
-              _contentApiController.writePost(widget.path.split('/').last, contentTextEditingController.text);
+              _writeContentController.writePost(widget.path.split('/').last, contentTextEditingController.text);
               Get.back();
             },
             child: Text(

@@ -1,12 +1,12 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/content_api_controller.dart';
+// import 'package:hipet/src/controller/content_api_controller.dart';
 import 'package:hipet/src/pages/content/write_post_page.dart';
 import 'package:hipet/src/widgets/back_key.dart';
 
 class SelectVideoPage extends StatelessWidget {
-  final ContentApiController _contentApiController = Get.find();
+  // final ContentApiController _contentApiController = Get.find();
 
   @override
   Widget build(BuildContext context) {

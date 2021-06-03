@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/content_api_controller.dart';
+import 'package:hipet/src/controller/user_controller.dart';
 import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/pages/content/my_profile_edit_page.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';
 import 'package:hipet/src/widgets/edit_button.dart';
 
 class MyProfilePage extends StatelessWidget with AppbarMaker {
-  final ContentApiController _contentApiController = Get.find();
+  final UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class MyProfilePage extends StatelessWidget with AppbarMaker {
         padding: const EdgeInsets.fromLTRB(20, 0, 16, 24),
         child: Row(
           children: [
-            CircularImageView(_contentApiController.user?.profileImg ?? ''),
+            CircularImageView(_userController.user?.profileImg ?? ''),
             SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class MyProfilePage extends StatelessWidget with AppbarMaker {
               children: [
                 Flexible(
                   child: Text(
-                    _contentApiController.user?.name ?? '',
+                    _userController.user?.name ?? '',
                     style: Get.textTheme.headline1!.copyWith(color: Colors.white),
                   ),
                 ),

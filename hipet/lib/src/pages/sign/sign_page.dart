@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
 import 'package:hipet/src/controller/login_controller.dart';
 import 'package:hipet/src/controller/user_info_controller.dart';
+import 'package:hipet/src/mixin/api_core.dart';
 import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/pages/content/main_content_page.dart';
 import 'package:hipet/src/pages/sign/policy_page.dart';
@@ -23,7 +24,7 @@ class SignPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Logo(),
-            for(var i = 0; i < 5; i++) SizedBox(),
+            for (var i = 0; i < 5; i++) SizedBox(),
             Obx(
               () => WidestButton(
                 '전화번호로 ' + (_loginController.isLogin ? '계속 진행' : '가입'),
@@ -48,7 +49,20 @@ class SignPage extends StatelessWidget {
 
   void clickLoginEvent(SignType type) {
     if (_loginController.isLogin) {
-      Get.to(() => MainContentPage(), binding: ContentBinding());
+      Get.to(
+        () {
+          ApiCore.reloadCurrentUserForToken().then((value) {
+            UserInfoController.saveToken(value);
+            Get.to(() => MainContentPage(), binding: ContentBinding());
+          });
+
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
+      );
     } else {
       Get.to(() => PolicyPage(type), binding: SignBinding());
     }

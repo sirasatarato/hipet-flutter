@@ -1,20 +1,22 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/content_api_controller.dart';
+import 'package:hipet/src/controller/user_controller.dart';
+import 'package:hipet/src/controller/write_content_controller.dart';
 import 'package:hipet/src/widgets/back_key.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';
 import 'package:hipet/src/widgets/edit_button.dart';
 
 // ignore: must_be_immutable
 class MyProfileEditPage extends StatelessWidget {
-  final ContentApiController _contentApiController = Get.find();
+  final UserController _userController = Get.find();
+  final WriteContentController _writeContentController = Get.find();
   TextEditingController _nicknameEditingController = TextEditingController();
   String filePath = '';
 
   @override
   Widget build(BuildContext context) {
-    _nicknameEditingController = TextEditingController(text: _contentApiController.user?.name);
+    _nicknameEditingController = TextEditingController(text: _userController.user?.name);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -33,7 +35,7 @@ class MyProfileEditPage extends StatelessWidget {
             child: SizedBox(
               width: Get.width / 2.5,
               height: Get.width / 2.5,
-              child: CircularImageView(_contentApiController.user?.profileImg ?? ''),
+              child: CircularImageView(_userController.user?.profileImg ?? ''),
             ),
           ),
           Padding(
@@ -54,10 +56,10 @@ class MyProfileEditPage extends StatelessWidget {
       onTap: () async {
         if (_nicknameEditingController.text.isNotEmpty) {
           if (filePath.isNotEmpty) {
-            _contentApiController.editUserInfo(
+            _userController.editUserInfo(
                 name: _nicknameEditingController.text, profileImage: filePath.split('/').last);
           } else {
-            _contentApiController.editUserInfo(name: _nicknameEditingController.text);
+            _userController.editUserInfo(name: _nicknameEditingController.text);
           }
 
           Get.back();
@@ -101,7 +103,7 @@ class MyProfileEditPage extends StatelessWidget {
 
     if (result != null && result.files.single.path != null) {
       var path = result.files.single.path!;
-      await _contentApiController.uploadImage(path, path.split('/').last);
+      await _writeContentController.uploadImage(path, path.split('/').last);
       return path;
     }
 

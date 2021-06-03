@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/content_api_controller.dart';
+import 'package:hipet/src/controller/user_controller.dart';
 import 'package:hipet/src/controller/phone_controller.dart';
 import 'package:hipet/src/controller/policy_controller.dart';
+import 'package:hipet/src/controller/post_controller.dart';
 import 'package:hipet/src/controller/sign_up_controller.dart';
 import 'package:hipet/src/controller/topic_controller.dart';
-import 'package:hipet/src/controller/upload_post_controller.dart';
+import 'package:hipet/src/controller/write_content_controller.dart';
 
 class SignBinding implements Bindings {
   @override
@@ -19,7 +20,8 @@ class SignBinding implements Bindings {
 class ContentBinding implements Bindings {
   @override
   void dependencies() {
-    Get.put<ContentApiController>(ContentApiController());
-    Get.put<UploadPostController>(UploadPostController());
+    Get.put<UserController>(UserController());
+    Get.put<PostController>(PostController());
+    Get.put<WriteContentController>(WriteContentController());
   }
 }
