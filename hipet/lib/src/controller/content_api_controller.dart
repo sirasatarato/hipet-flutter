@@ -70,17 +70,29 @@ class ContentApiController extends Get.GetxController {
     // if(imageUrl.isNotEmpty) await dio.get('api/loadimage/$imageUrl');
   }
 
-  Future<void> uploadImage(String imageUrl, String name) async {
-    var formData = FormData.fromMap({
-      'media': await MultipartFile.fromFile(imageUrl, filename: name),
-    });
-    var newDio = Dio(BaseOptions(
-      baseUrl: 'http://hojoondev.kro.kr:5003/',
-      contentType: Headers.formUrlEncodedContentType,
-      headers: {'firebaseToken': UserInfoController.firebaseToken},
-    ));
+  Future<bool> uploadImage(String imageUrl, String name) async {
+    try {
+      var formData = FormData.fromMap({
+        'media': await MultipartFile.fromFile(imageUrl, filename: name),
+      });
+      var newDio = Dio(BaseOptions(
+        baseUrl: 'http://hojoondev.kro.kr:5003/',
+        contentType: Headers.formUrlEncodedContentType,
+        headers: {'firebaseToken': UserInfoController.firebaseToken},
+      ));
 
-    await newDio.post('api/media', data: formData);
+      await newDio.post('api/media', data: formData);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<void> writePost(String name, String description) async {
+    await dio.post('api/post', data: {
+      'mediaName': name,
+      'description': description,
+    });
   }
 
   Future<String> reloadCurrentUserForToken() async {

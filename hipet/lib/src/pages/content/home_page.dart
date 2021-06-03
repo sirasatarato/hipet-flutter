@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/home_content_controller.dart';
 import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';
 import 'package:hipet/src/widgets/post_comment_count_view.dart';
 import 'package:hipet/src/widgets/post_like_view.dart';
 
-import 'video_page.dart';
-
 class HomePage extends StatelessWidget with AppbarMaker {
-  final HomeContentController _homeContentController = Get.put(HomeContentController());
-
   @override
   Widget build(BuildContext context) {
-    _homeContentController.getPosts();
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: buildAppBarWithVideos(),

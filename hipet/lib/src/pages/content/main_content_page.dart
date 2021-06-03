@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hipet/src/controller/content_nav_controller.dart';
 import 'package:hipet/src/pages/content/like_page.dart';
 import 'package:hipet/src/pages/content/my_profile_page.dart';
+import 'package:hipet/src/pages/content/select_video_page.dart';
 
 import 'home_page.dart';
 
@@ -15,7 +16,6 @@ class MainContentPage extends StatelessWidget {
     HomePage(),
     LikePage(),
     MyProfilePage(),
-    Container(),
   ];
 
   @override
@@ -23,14 +23,20 @@ class MainContentPage extends StatelessWidget {
     return Scaffold(
       body: Obx(() => bodyContent[_contentNavController.selectedIndex]),
       bottomNavigationBar: Obx(
-          () => BottomNavigationBar(
+        () => BottomNavigationBar(
           backgroundColor: Theme.of(context).primaryColor,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          onTap: (index) => _contentNavController.selectedIndex = index,
+          onTap: (index) {
+            if(index == bodyContent.length) {
+              Get.to(() => SelectVideoPage());
+            } else {
+              _contentNavController.selectedIndex = index;
+            }
+          },
           currentIndex: _contentNavController.selectedIndex,
           items: [
             BottomNavigationBarItem(
@@ -54,7 +60,4 @@ class MainContentPage extends StatelessWidget {
       ),
     );
   }
-
-
 }
-
