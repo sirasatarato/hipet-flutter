@@ -5,6 +5,11 @@ import 'package:get/get.dart';
 import 'package:hipet/src/util/hash_tag.dart';
 
 class PostBottomComment extends StatelessWidget {
+  final String content;
+  final String date;
+
+  PostBottomComment(this.content, this.date);
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -24,11 +29,11 @@ class PostBottomComment extends StatelessWidget {
                     '인기가 많은 댕댕이',
                     style: Get.textTheme.caption!.copyWith(fontWeight: FontWeight.bold),
                   ),
-                  Text('2021-02-23', style: Get.textTheme.caption),
+                  Text(date, style: Get.textTheme.caption),
                 ],
               ),
               Spacer(),
-              getColoredHashTagText('저희집 댕댕이에요ㅠ 너무 귀엽죠ㅠㅠ\n진짜 사랑스러워요~~ #졸귀 #강아지'),
+              getColoredHashTagText(content),
             ],
           ),
         ),

@@ -31,7 +31,7 @@ class MyProfileEditPage extends StatelessWidget {
         children: [
           SizedBox(height: Get.height * 0.077),
           GestureDetector(
-            onTap: () async => filePath = await uploadImage(),
+            onTap: uploadImage,
             child: SizedBox(
               width: Get.width / 2.5,
               height: Get.width / 2.5,
@@ -98,15 +98,14 @@ class MyProfileEditPage extends StatelessWidget {
     );
   }
 
-  Future<String> uploadImage() async {
+  void uploadImage() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
 
     if (result != null && result.files.single.path != null) {
       var path = result.files.single.path!;
-      await _writeContentController.uploadImage(path, path.split('/').last);
-      return path;
+      if(await _writeContentController.uploadImage(path, path.split('/').last)) {
+        filePath = path;
+      }
     }
-
-    return '';
   }
 }

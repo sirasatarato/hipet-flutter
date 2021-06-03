@@ -5,6 +5,7 @@ import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/pages/content/my_profile_edit_page.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';
 import 'package:hipet/src/widgets/edit_button.dart';
+import 'package:hipet/src/widgets/post_grid_view.dart';
 
 class MyProfilePage extends StatelessWidget with AppbarMaker {
   final UserController _userController = Get.find();
@@ -15,11 +16,7 @@ class MyProfilePage extends StatelessWidget with AppbarMaker {
       appBar: buildAppBarWithNotification('마이페이지'),
       body: NestedScrollView(
         headerSliverBuilder: (_, __) => [buildHeader()],
-        body: GridView.count(
-          childAspectRatio: 3 / 5,
-          crossAxisCount: 3,
-          children: [],
-        ),
+        body: PostGridView([]),
       ),
     );
   }
