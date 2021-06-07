@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/write_content_controller.dart';
+import 'package:hipet/src/controller/content/write_content_controller.dart';
 import 'package:hipet/src/widgets/back_key.dart';
 import 'package:video_player/video_player.dart';
 

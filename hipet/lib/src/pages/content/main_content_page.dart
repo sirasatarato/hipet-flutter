@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/content_nav_controller.dart';
+import 'package:hipet/src/controller/content/content_nav_controller.dart';
 import 'package:hipet/src/pages/content/like_page.dart';
 import 'package:hipet/src/pages/content/my_profile_page.dart';
 import 'package:hipet/src/pages/content/select_video_page.dart';

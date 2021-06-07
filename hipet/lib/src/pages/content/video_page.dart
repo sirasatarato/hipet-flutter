@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/post_controller.dart';
+import 'package:hipet/src/controller/content/post_controller.dart';
 import 'package:hipet/src/widgets/post_bottom_comment.dart';
 import 'package:video_player/video_player.dart';
 

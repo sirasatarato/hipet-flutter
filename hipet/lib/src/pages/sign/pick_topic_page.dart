@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/sign_up_controller.dart';
-import 'package:hipet/src/controller/topic_controller.dart';
+import 'package:hipet/src/controller/sign/sign_up_controller.dart';
+import 'package:hipet/src/controller/sign/topic_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/widgets/pickable_topic.dart';
 import 'package:hipet/src/widgets/widest_button.dart';

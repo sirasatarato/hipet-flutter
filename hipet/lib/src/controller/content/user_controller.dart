@@ -14,6 +14,7 @@ class UserController extends getx.GetxController with ApiCore {
   void getMyProfileData() async {
     var response = await dio.get('api/auth');
     _user.value = UserModel.fromJson(response.data);
+    print(user!.profileImg);
   }
 
   void editUserInfo({String? name, String? profileImage}) async {

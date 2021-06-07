@@ -1,12 +1,12 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:hipet/src/controller/content_api_controller.dart';
+import 'package:hipet/src/controller/content/write_content_controller.dart';
 import 'package:hipet/src/pages/content/write_post_page.dart';
 import 'package:hipet/src/widgets/back_key.dart';
 
 class SelectVideoPage extends StatelessWidget {
-  // final ContentApiController _contentApiController = Get.find();
+  final WriteContentController _writeContentController  = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,11 @@ class SelectVideoPage extends StatelessWidget {
 
     if (result != null && result.files.single.path != null) {
       var path = result.files.single.path!;
-      // if(await _contentApiController.uploadImage(path, path.split('/').last)) {
+      if(await _writeContentController.uploadImage(path, path.split('/').last)) {
         Get.off(() => WritePostPage(path));
-      // } else {
-      //   Get.back();
-      // }
+      } else {
+        Get.back();
+      }
     }
   }
 }

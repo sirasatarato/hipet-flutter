@@ -1,8 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/user_controller.dart';
-import 'package:hipet/src/controller/write_content_controller.dart';
+import 'package:hipet/src/controller/content/user_controller.dart';
+import 'package:hipet/src/controller/content/write_content_controller.dart';
 import 'package:hipet/src/widgets/back_key.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';
 import 'package:hipet/src/widgets/edit_button.dart';
@@ -103,6 +103,7 @@ class MyProfileEditPage extends StatelessWidget {
 
     if (result != null && result.files.single.path != null) {
       var path = result.files.single.path!;
+      print(path);
       if(await _writeContentController.uploadImage(path, path.split('/').last)) {
         filePath = path;
       }

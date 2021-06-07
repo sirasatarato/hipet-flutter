@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
-import 'package:hipet/src/controller/login_controller.dart';
+import 'package:hipet/src/controller/sign/login_controller.dart';
 import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/mixin/api_core.dart';
 import 'package:hipet/src/model/sign_type.dart';

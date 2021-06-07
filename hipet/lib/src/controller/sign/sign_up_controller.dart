@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 
-import 'user_info_controller.dart';
+import '../user_info_controller.dart';
 
 class SignUpController extends getx.GetxController {
   Future<bool> signUpApi(String survey) async {

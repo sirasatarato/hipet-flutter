@@ -20,8 +20,8 @@ class PostController extends GetxController with ApiCore {
     return posts[currentPostIdx];
   }
 
-  // PostController() {
-  //   dio.get('api/post').then((response) => print(response.data));
-  //   update();
-  // }
+  PostController() {
+    dio.get('api/post').then((response) => print(response.data));
+    update();
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/login_controller.dart';
+import 'package:hipet/src/controller/sign/login_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/widgets/logo.dart';
 import 'package:hipet/src/widgets/widest_button.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/write_content_controller.dart';
+import 'package:hipet/src/controller/content/write_content_controller.dart';
 
 class CircularImageView extends StatelessWidget {
   final WriteContentController _writeContentController = Get.find();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/user_controller.dart';
+import 'package:hipet/src/controller/content/user_controller.dart';
 import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/pages/content/my_profile_edit_page.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';

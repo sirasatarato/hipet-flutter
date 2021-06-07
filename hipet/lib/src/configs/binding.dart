@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/user_controller.dart';
-import 'package:hipet/src/controller/phone_controller.dart';
-import 'package:hipet/src/controller/policy_controller.dart';
-import 'package:hipet/src/controller/post_controller.dart';
-import 'package:hipet/src/controller/sign_up_controller.dart';
-import 'package:hipet/src/controller/topic_controller.dart';
-import 'package:hipet/src/controller/write_content_controller.dart';
+import 'package:hipet/src/controller/content/user_controller.dart';
+import 'package:hipet/src/controller/sign/phone_controller.dart';
+import 'package:hipet/src/controller/sign/policy_controller.dart';
+import 'package:hipet/src/controller/content/post_controller.dart';
+import 'package:hipet/src/controller/sign/sign_up_controller.dart';
+import 'package:hipet/src/controller/sign/topic_controller.dart';
+import 'package:hipet/src/controller/content/write_content_controller.dart';
 
 class SignBinding implements Bindings {
   @override

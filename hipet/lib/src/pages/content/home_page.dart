@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/post_controller.dart';
+import 'package:hipet/src/controller/content/post_controller.dart';
 import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/pages/content/video_page.dart';
 import 'package:hipet/src/widgets/circular_image_view.dart';

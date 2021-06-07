@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/policy_controller.dart';
+import 'package:hipet/src/controller/sign/policy_controller.dart';
 
 class PolicyCheckBox extends StatelessWidget {
   final PolicyController _policyController = Get.find();

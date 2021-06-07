@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hipet/src/controller/policy_controller.dart';
+import 'package:hipet/src/controller/sign/policy_controller.dart';
 import 'package:hipet/src/mixin/appbar_maker.dart';
 import 'package:hipet/src/model/sign_type.dart';
 import 'package:hipet/src/widgets/policy_check_box.dart';
