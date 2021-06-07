@@ -12,7 +12,7 @@ class MyProfileEditPage extends StatelessWidget {
   final UserController _userController = Get.find();
   final WriteContentController _writeContentController = Get.find();
   TextEditingController _nicknameEditingController = TextEditingController();
-  String filePath = '';
+  String uid = '';
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +55,9 @@ class MyProfileEditPage extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if (_nicknameEditingController.text.isNotEmpty) {
-          if (filePath.isNotEmpty) {
+          if (uid.isNotEmpty) {
             _userController.editUserInfo(
-                name: _nicknameEditingController.text, profileImage: filePath.split('/').last);
+                name: _nicknameEditingController.text, profileImage: uid);
           } else {
             _userController.editUserInfo(name: _nicknameEditingController.text);
           }
@@ -103,10 +103,7 @@ class MyProfileEditPage extends StatelessWidget {
 
     if (result != null && result.files.single.path != null) {
       var path = result.files.single.path!;
-      print(path);
-      if(await _writeContentController.uploadImage(path, path.split('/').last)) {
-        filePath = path;
-      }
+      uid = await _writeContentController.uploadMedia(path);
     }
   }
 }

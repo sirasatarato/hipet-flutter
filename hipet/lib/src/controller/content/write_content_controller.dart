@@ -4,14 +4,17 @@ import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/mixin/api_core.dart';
 
 class WriteContentController extends getx.GetxController with ApiCore {
-  Future<void> getImage(String imageUrl) async {
-    if (imageUrl.isNotEmpty) await dio.get('api/loadimage/$imageUrl');
+  Future getImage(String imageUrl) async {
+    if (imageUrl.isNotEmpty) {
+      var response = await dio.get('api/media/$imageUrl');
+      return response.data;
+    }
   }
 
-  Future<bool> uploadImage(String imageUrl, String name) async {
+  Future<String> uploadMedia(String mediaPath) async {
     try {
       print("uploading...");
-      var formData = FormData.fromMap({'media': await MultipartFile.fromFile(imageUrl, filename: name)});
+      var formData = FormData.fromMap({'media': await MultipartFile.fromFile(mediaPath)});
       var newDio = Dio(BaseOptions(
         baseUrl: 'http://hojoondev.kro.kr:5003/',
         contentType: 'multipart/form-data',
@@ -31,11 +34,12 @@ class WriteContentController extends getx.GetxController with ApiCore {
           ),
         ]);
 
-      print('success: ${await newDio.post('api/media', data: formData)}');
-      return true;
+      var response = await newDio.post('api/media', data: formData);
+      print('success: ${response.data}');
+      return response.data['uid'];
     } catch (e) {
       print('failed: $e');
-      return false;
+      return '';
     }
   }
 
