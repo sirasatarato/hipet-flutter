@@ -27,9 +27,9 @@ class PostBottomComment extends StatelessWidget {
                 children: [
                   Text(
                     '인기가 많은 댕댕이',
-                    style: Get.textTheme.caption!.copyWith(fontWeight: FontWeight.bold),
+                    style: Get.textTheme.caption!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                   ),
-                  Text(date, style: Get.textTheme.caption),
+                  Text(date, style: Get.textTheme.caption!.copyWith(color: Colors.white)),
                 ],
               ),
               Spacer(),

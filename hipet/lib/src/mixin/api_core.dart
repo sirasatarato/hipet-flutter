@@ -4,8 +4,10 @@ import 'package:get/get.dart' as getx;
 import 'package:hipet/src/controller/user_info_controller.dart';
 
 mixin ApiCore {
+  static const baseUrl = 'http://hojoondev.kro.kr:5003/';
+
   static final BaseOptions options = BaseOptions(
-    baseUrl: 'http://hojoondev.kro.kr:5003/',
+    baseUrl: baseUrl,
     contentType: Headers.jsonContentType,
     headers: {'firebaseToken': UserInfoController.firebaseToken},
   );

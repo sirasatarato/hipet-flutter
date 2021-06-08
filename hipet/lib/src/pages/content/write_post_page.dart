@@ -8,8 +8,9 @@ import 'package:video_player/video_player.dart';
 
 class WritePostPage extends StatefulWidget {
   final String path;
+  final String uid;
 
-  WritePostPage(this.path);
+  WritePostPage(this.path, this.uid);
 
   @override
   _WritePostPageState createState() => _WritePostPageState();
@@ -37,7 +38,7 @@ class _WritePostPageState extends State<WritePostPage> {
         actions: [
           TextButton(
             onPressed: () {
-              _writeContentController.writePost(widget.path.split('/').last, contentTextEditingController.text);
+              _writeContentController.writePost(widget.uid, contentTextEditingController.text);
               Get.back();
             },
             child: Text(

@@ -14,11 +14,11 @@ class HomePage extends StatelessWidget with AppbarMaker {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: buildAppBarWithVideos(),
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
           VideoPage(),
+          buildAppBarWithVideos(),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Obx(() => buildActions()),
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget with AppbarMaker {
   }
 
   Container buildActions() {
-    var post = _postController.getCurrentPost();
+    var post = _postController.mainPost;
 
     return Container(
       alignment: Alignment.bottomRight,
@@ -43,10 +43,10 @@ class HomePage extends StatelessWidget with AppbarMaker {
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(100),
             ),
-            child: CircularImageView(post?.media ?? ''),
+            child: CircularImageView(post.media.isNotEmpty ? post.media : '', fromImage: false),
           ),
           SizedBox(height: 8),
-          PostLikeCountView(post?.like ?? 0),
+          PostLikeCountView(post.like),
           SizedBox(height: 8),
           PostCommentCountView(),
           SizedBox(height: 8),

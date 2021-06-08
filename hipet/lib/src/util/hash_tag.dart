@@ -10,7 +10,7 @@ Widget getColoredHashTagText(String text) {
       text: TextSpan(
         style: Get.textTheme.caption,
         children: <TextSpan>[
-          TextSpan(text: preHashTag),
+          TextSpan(text: preHashTag, style: TextStyle(color: Colors.white)),
           TextSpan(text: postHashTag, style: TextStyle(color: Colors.yellow)),
         ],
       ),

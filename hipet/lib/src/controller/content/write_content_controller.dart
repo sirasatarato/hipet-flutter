@@ -1,14 +1,31 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/mixin/api_core.dart';
+import 'package:path_provider/path_provider.dart';
 
 class WriteContentController extends getx.GetxController with ApiCore {
   Future getImage(String imageUrl) async {
-    if (imageUrl.isNotEmpty) {
-      var response = await dio.get('api/media/$imageUrl');
-      return response.data;
+    if (imageUrl.isNotEmpty && imageUrl != '0') {
+      return ApiCore.baseUrl + 'api/media/$imageUrl';
     }
+
+    return null;
+  }
+
+  Future<File?> getVideo(String videoUrl) async {
+    if (videoUrl.isNotEmpty && videoUrl != '0') {
+      final directory = await getApplicationDocumentsDirectory();
+      var path = directory.path + '/hipet.mov';
+      var file = File(path);
+      await dio.download('api/media/$videoUrl', path);
+
+      return file;
+    }
+
+    return null;
   }
 
   Future<String> uploadMedia(String mediaPath) async {

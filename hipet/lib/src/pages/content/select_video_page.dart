@@ -52,7 +52,7 @@ class SelectVideoPage extends StatelessWidget {
       var path = result.files.single.path!;
       var uid = await _writeContentController.uploadMedia(path);
       if(uid.isNotEmpty) {
-        Get.off(() => WritePostPage(uid));
+        Get.off(() => WritePostPage(path, uid));
       } else {
         Get.back();
       }

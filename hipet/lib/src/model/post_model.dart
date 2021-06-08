@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Post {
   final String userId;
   final int like;
@@ -10,15 +8,24 @@ class Post {
 
   Post(this.userId, this.like, this.view, this.content, this.media, this.date);
 
-  factory Post.fromJson(String responseData) {
-    Map<String, dynamic> data = jsonDecode(responseData);
-
+  factory Post.empty() {
     return Post(
-      data['userId'],
+      '',
+      0,
+      0,
+      '',
+      '',
+      '',
+    );
+  }
+
+  factory Post.fromJson(Map<String, dynamic> data) {
+    return Post(
+      data['userUid'],
       data['like'],
       data['view'],
-      data['content'],
-      data['media'],
+      data['description'],
+      data['mediaName'].toString().replaceAll(',', ''),
       data['date'],
     );
   }

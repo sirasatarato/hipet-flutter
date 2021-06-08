@@ -16,7 +16,7 @@ class MyProfilePage extends StatelessWidget with AppbarMaker {
       appBar: buildAppBarWithNotification('마이페이지'),
       body: NestedScrollView(
         headerSliverBuilder: (_, __) => [buildHeader()],
-        body: PostGridView([]),
+        body: PostGridView(_userController.userPost),
       ),
     );
   }
