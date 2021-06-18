@@ -27,7 +27,9 @@ class UserInfoController extends GetxController {
   }
 
   static void signOutWithGoogle() async {
-    await GoogleSignIn().signOut();
-    saveToken('');
+    if(GoogleSignIn().currentUser != null) {
+      await GoogleSignIn().signOut();
+      saveToken('');
+    }
   }
 }
