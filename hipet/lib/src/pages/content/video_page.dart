@@ -15,7 +15,15 @@ class VideoPage extends StatelessWidget {
       () => FutureBuilder(
         future: _writeContentController.getVideo(_postController.mainPost.media),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+          if (snapshot.connectionState != ConnectionState.done) return Center(child: CircularProgressIndicator());
+
+          if (snapshot.data == null) {
+            return Center(
+                child: Text(
+                  '게시물이 없습니다. 자신만의 게시물을 업로드 하세요!',
+                  style: Get.textTheme.headline1!.copyWith(color: Colors.white),
+                ));
+          }
 
           var _videoController = VideoPlayerController.file(snapshot.data);
           return FutureBuilder(

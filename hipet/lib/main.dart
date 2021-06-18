@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/themes.dart';
-import 'package:hipet/src/controller/sign/login_controller.dart';
 import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/pages/splash_page.dart';
@@ -20,8 +19,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final LoginController _loginController = Get.put(LoginController());
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -32,7 +29,6 @@ class MyApp extends StatelessWidget {
         future: _getIsLogin(),
         builder: (context, AsyncSnapshot snapshot) {
           if(snapshot.connectionState == ConnectionState.done) {
-            _loginController.isLogin = snapshot.data;
             return SignPage();
           }
 

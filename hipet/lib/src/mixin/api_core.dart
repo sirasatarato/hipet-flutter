@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' as getx;
 import 'package:hipet/src/controller/user_info_controller.dart';
 
@@ -32,9 +33,15 @@ mixin ApiCore {
     ]);
 
   static Future<String> reloadCurrentUserForToken() async {
-    User oldUser = FirebaseAuth.instance.currentUser!;
-    await oldUser.reload();
-    User newUser = FirebaseAuth.instance.currentUser!;
-    return await newUser.getIdToken(true);
+    try {
+      User oldUser = FirebaseAuth.instance.currentUser!;
+      await oldUser.reload();
+      User newUser = FirebaseAuth.instance.currentUser!;
+      return await newUser.getIdToken(true);
+    } catch(e) {
+      Fluttertoast.showToast(msg: '토큰이 만료되었습니다. 다시 갱신해주시길 바랍니다.');
+      getx.Get.back();
+      return '';
+    }
   }
 }

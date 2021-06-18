@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/controller/sign/sign_up_controller.dart';
 import 'package:hipet/src/controller/sign/topic_controller.dart';
+import 'package:hipet/src/controller/user_info_controller.dart';
+import 'package:hipet/src/pages/sign/join_fin_page.dart';
 import 'package:hipet/src/pages/sign/sign_page.dart';
 import 'package:hipet/src/widgets/pickable_topic.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
-
-import 'join_fin_page.dart';
 
 class PickTopicPage extends StatelessWidget {
   final TopicController _topicController = Get.find();
@@ -100,12 +99,10 @@ class PickTopicPage extends StatelessWidget {
   }
 
   void selectCompleteEvent(String survey) async {
-    bool isSuccess = await _signUpController.signUpApi(survey);
-
-    if (isSuccess) {
+    if (await _signUpController.signUpApi(survey)) {
       Get.to(() => JoinFinPage());
     } else {
-      Fluttertoast.showToast(msg: '시간 초과가 되셨습니다. 다시 한 번 인증해 주십시오.');
+      UserInfoController.signOutWithGoogle();
       Get.offAll(() => SignPage());
     }
   }

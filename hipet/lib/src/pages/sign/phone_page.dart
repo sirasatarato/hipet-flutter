@@ -78,7 +78,7 @@ class PhonePage extends StatelessWidget with AppbarMaker {
                     '재발송',
                     style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
                   ),
-                )
+                ),
               ],
             ),
           ],
@@ -101,7 +101,9 @@ class PhonePage extends StatelessWidget with AppbarMaker {
       () => WidestButton(
         '본인 인증',
         isColored: phoneController.isValid,
-        clickEvent: () => Get.to(() => PickTopicPage()),
+        clickEvent: () {
+          if(phoneController.isValid) Get.to(() => PickTopicPage());
+        },
       ),
     );
   }

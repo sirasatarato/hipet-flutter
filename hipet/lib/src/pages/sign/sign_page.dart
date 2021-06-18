@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hipet/src/configs/binding.dart';
-import 'package:hipet/src/controller/sign/login_controller.dart';
 import 'package:hipet/src/controller/user_info_controller.dart';
 import 'package:hipet/src/mixin/api_core.dart';
 import 'package:hipet/src/model/sign_type.dart';
@@ -11,8 +11,8 @@ import 'package:hipet/src/widgets/logo.dart';
 import 'package:hipet/src/widgets/widest_button.dart';
 
 class SignPage extends StatelessWidget {
-  static final UserInfoController _userInfoController = Get.find();
-  static final LoginController _loginController = Get.find();
+  final UserInfoController _userInfoController = Get.find();
+  final isLogin = UserInfoController.firebaseToken.isNotEmpty.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class SignPage extends StatelessWidget {
             for (var i = 0; i < 5; i++) SizedBox(),
             Obx(
               () => WidestButton(
-                '전화번호로 ' + (_loginController.isLogin ? '계속 진행' : '가입'),
+                '전화번호로 ' + (isLogin.value ? '계속 진행' : '가입'),
                 imageAsset: 'assets/icon/ic_person.png',
                 clickEvent: () => clickLoginEvent(SignType.PHONE),
               ),
@@ -36,7 +36,6 @@ class SignPage extends StatelessWidget {
               '구글로 계속 진행',
               imageAsset: 'assets/icon/ic_Google.png',
               clickEvent: () {
-                _userInfoController.signInWithGoogle();
                 clickLoginEvent(SignType.GOOGLE);
               },
             ),
@@ -48,41 +47,44 @@ class SignPage extends StatelessWidget {
   }
 
   void clickLoginEvent(SignType type) {
-    if (_loginController.isLogin) {
-      Get.to(
-        () {
-          ApiCore.reloadCurrentUserForToken().then((value) {
-            UserInfoController.saveToken(value);
-            Get.to(() => MainContentPage(), binding: ContentBinding());
-          });
+    if (isLogin.value) {
+      if (UserInfoController.firebaseToken.isNotEmpty) {
+        Get.to(
+          () {
+            ApiCore.reloadCurrentUserForToken().then((value) {
+              UserInfoController.saveToken(value);
+              Get.to(() => MainContentPage(), binding: ContentBinding());
+            });
 
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        },
-      );
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          },
+        );
+      } else {
+        Fluttertoast.showToast(msg: '로그인이 안 되어 있습니다. 회원 가입해주시길 바랍니다.');
+      }
     } else {
+      if (type == SignType.GOOGLE) _userInfoController.signInWithGoogle();
       Get.to(() => PolicyPage(type), binding: SignBinding());
     }
   }
 
   Row buildSignBottom() {
-    bool isLogin = _loginController.isLogin;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          isLogin ? '계정이 없으세요?' : '이미 계정이 있으신가요?',
+          isLogin.value ? '계정이 없으세요?' : '이미 계정이 있으신가요?',
           style: Get.textTheme.bodyText1,
         ),
         SizedBox(width: 16),
         GestureDetector(
-          onTap: _loginController.switchIsLogin,
+          onTap: () => isLogin.value = !isLogin.value,
           child: Text(
-            isLogin ? '가입하기' : '로그인',
+            isLogin.value ? '가입하기' : '로그인',
             style: Get.textTheme.button!.copyWith(color: Get.theme.accentColor),
           ),
         ),

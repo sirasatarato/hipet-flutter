@@ -22,7 +22,7 @@ class UserController extends getx.GetxController with ApiCore {
     print(response.data);
     _user.value = UserModel.fromJson(response.data);
 
-    if(response.data['uid'].toString().isNotEmpty) {
+    if (response.data['uid'].toString().isNotEmpty) {
       var newDio = Dio(BaseOptions(
         baseUrl: ApiCore.baseUrl,
         contentType: 'multipart/form-data',
@@ -44,7 +44,7 @@ class UserController extends getx.GetxController with ApiCore {
 
       var res = await newDio.get('api/post');
       print(res.data);
-      _userPost.value = (res.data as List).map((e) => Post.fromJson(e)).toList();
+      update(_userPost.value = (res.data as List).map((e) => Post.fromJson(e)).toList());
     }
   }
 

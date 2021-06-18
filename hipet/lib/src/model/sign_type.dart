@@ -4,7 +4,6 @@ import 'package:hipet/src/pages/sign/pick_topic_page.dart';
 enum SignType {
   PHONE,
   GOOGLE,
-  FACEBOOK,
 }
 
 extension SignTypeExtension on SignType {
@@ -13,7 +12,6 @@ extension SignTypeExtension on SignType {
       case SignType.PHONE:
         return PhonePage();
       case SignType.GOOGLE:
-      case SignType.FACEBOOK:
         return PickTopicPage();
     }
   }

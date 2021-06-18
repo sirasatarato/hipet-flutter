@@ -11,8 +11,7 @@ class PostController extends GetxController with ApiCore {
 
   PostController() {
     dio.get('api/post').then((response) {
-      print(response.data);
-      _mainPost.value = Post.fromJson(response.data);
+      if((response.data as String).isNotEmpty) _mainPost.value = Post.fromJson(response.data);
     });
   }
 }

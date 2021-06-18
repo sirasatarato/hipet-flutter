@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget with AppbarMaker {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           VideoPage(),

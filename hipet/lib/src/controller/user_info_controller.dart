@@ -5,8 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hipet/src/util/database_helper.dart';
 
 class UserInfoController extends GetxController {
-  final auth = FirebaseAuth.instance;
   static var firebaseToken = DatabaseHelper().firebaseToken;
+  final auth = FirebaseAuth.instance;
 
   static void saveToken(String token) {
     firebaseToken = token;
@@ -22,6 +22,12 @@ class UserInfoController extends GetxController {
     } catch (e) {
       e.printError();
       Fluttertoast.showToast(msg: '구글 로그인 실패하셨습니다.');
+      Get.back();
     }
+  }
+
+  static void signOutWithGoogle() async {
+    await GoogleSignIn().signOut();
+    saveToken('');
   }
 }
